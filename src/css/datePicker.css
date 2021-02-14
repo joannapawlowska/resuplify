@@ -1,0 +1,200 @@
+@import "color-variables.css";
+
+.CalendarPickerControlSkin {
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 20;
+}
+
+.CalendarPickerControlSkin .weeknumber {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -primary-color;
+}
+
+.CalendarPickerControlSkin .weekend,
+.CalendarPickerControlSkin .weekday {
+    -fx-text-fill: -primary-font-color;
+    -fx-padding: 8px 0px 8px 0px;
+}
+
+.CalendarPickerControlSkin .day-button {
+    -fx-text-fill: -primary-font-color;
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0;
+}
+
+.CalendarPickerControlSkin .day-button:hover{
+    -fx-background-color: -hover-accent-color;
+}
+.CalendarPickerControlSkin .day-button:selected {
+    -fx-background-color: -accent-color;
+}
+
+.CalendarPickerControlSkin .today {
+    -fx-background-color: -hover-primary-color;
+    -fx-background-radius: 20;
+}
+
+.CalendarPickerControlSkin .today-button {
+    -fx-cursor: null;
+}
+
+.CalendarPicker .ListSpinner {
+    -fx-background-color: none;
+    -fx-padding: 30px 20px 0px 0px;
+}
+
+.CalendarPicker .ListSpinner:hover {
+    -fx-color: none;
+}
+
+.ListSpinner .valuePane {
+    -fx-padding: 0;
+}
+
+.ListSpinner .valuePane .label {
+    -fx-text-fill: -primary-font-color;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+.ListSpinner .left-arrow {
+    -fx-shape: "M4,-4 L0,0 L4,4 Z";
+    -fx-scale-shape: true;
+    -fx-padding: 8;
+    -fx-background-color: -primary-font-color;
+    -fx-background-insets: 2;
+}
+.ListSpinner .right-arrow {
+    -fx-shape: "M0,-4 L4,0 L0,4 Z";
+    -fx-scale-shape: true;
+    -fx-padding: 8;
+    -fx-background-color: -primary-font-color;
+    -fx-background-insets: 2;
+}
+
+.ListSpinner .right-arrow:hover,
+.ListSpinner .left-arrow:hover {
+    -fx-background-color: -accent-color;
+}
+
+/*####################################################################*/
+
+.date-picker {
+    -fx-background-color: -accent-color;
+    -fx-background-radius: 20;
+    -fx-text-fill: -primary-font-color;
+}
+
+.date-picker:hover {
+    -fx-background-color: -hover-accent-color;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary-font-color;
+    -fx-prompt-text-fill: -primary-font-color;
+}
+
+.date-picker:editable .arrow-button > * {
+    -fx-opacity: 0;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-size: 60% 60%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup {
+    -fx-background-color: #636875;
+    -fx-effect: none;
+    -fx-background-radius: 10;
+    -fx-max-height: 250;
+    -fx-pref-height: 250;
+}
+
+.date-picker-popup .spinner .label {
+    -fx-text-fill: -primary-font-color;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+}
+
+.date-picker-popup .spinner .button,
+.date-picker-popup .spinner .button:hover {
+    -fx-background-color: transparent;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: -primary-font-color;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: -primary-font-color;
+    -fx-background-insets: 0;
+    -fx-effect: none;
+}
+
+.date-picker-popup .spinner .button .left-arrow:hover,
+.date-picker-popup .spinner .button .right-arrow:hover {
+    -fx-background-color: -hover-accent-color;
+    -fx-background-insets: 0;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #636875;
+    -fx-padding: 0 20px 10px 20px;
+    -fx-background-radius: 10;
+}
+
+.date-picker-popup .calendar-grid {
+    -fx-background-color: transparent;
+}
+
+
+.date-picker-popup .day-name-cell {
+    -fx-border-color: #636875;
+    -fx-border-width: 1px;
+    -fx-background-color: #636875;
+    -fx-background-insets: 0;
+    -fx-text-fill: -primary-font-color;
+    -fx-padding: 0 0 10px 0;
+}
+
+.date-picker-popup .day-cell {
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-background-color: #636875;
+    -fx-background-insets: 1, 2;
+    -fx-text-fill: -primary-font-color;
+    -fx-background-radius: 50;
+}
+
+.date-picker-popup .day-cell:focused {
+    -fx-background-color: -hover-accent-color;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: -hover-accent-color;
+}
+
+.date-picker-popup .previous-month,
+.date-picker-popup .next-month {
+    -fx-text-fill: #9498a4;
+}
+
+.date-picker-popup .previous-month:hover,
+.date-picker-popup .next-month:hover {
+    -fx-text-fill: -primary-font-color;
+}
+
+.date-picker-popup .today,
+.date-picker-popup .today:focused {
+    -fx-background-color: #787d8a ;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="@../css/main-scene.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainSceneController">
+    <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+              <StackPane prefHeight="474.0" prefWidth="689.0" BorderPane.alignment="CENTER">
+                  <children>
+                      <AnchorPane fx:id="predictionPane" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
+                          <children>
+                              <fx:include source="PredictionPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
+                          <children>
+                              <fx:include source="SettingsPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                      </AnchorPane>
+                      <AnchorPane fx:id="logOutPane" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
+                          <children>
+                              <fx:include source="LogOutPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                      </AnchorPane>
+                  </children>
+              </StackPane>
+         </center>
+         <left>
+              <VBox alignment="CENTER_RIGHT" minWidth="110.0" prefHeight="514.0" prefWidth="110.0" styleClass="pane-menu" BorderPane.alignment="CENTER">
+                  <children>
+                  <RadioButton fx:id="predictionPaneBtn" contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handlePredictionPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Prediction">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="menuButtons" />
+                     </toggleGroup>
+                     <graphic>
+                              <SVGPath content="M40,60 C42,48 44,30 25,32" />
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton fx:id="settingsPaneBtn" contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handleSettingsPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Settings" toggleGroup="$menuButtons">
+                     <graphic>
+                              <SVGPath content="M40,60 C42,48 44,30 25,32" />
+                     </graphic>
+                  </RadioButton>
+                  <RadioButton fx:id="logOutPaneBtn" contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handleLogOutPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Log out" toggleGroup="$menuButtons">
+                     <graphic>
+                              <SVGPath content="M40,60 C42,48 44,30 25,32" />
+                     </graphic>
+                  </RadioButton>
+                  </children>
+              </VBox>
+         </left>
+      </BorderPane>
+    </children>
+</AnchorPane>

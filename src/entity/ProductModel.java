@@ -9,16 +9,14 @@ public class ProductModel {
 
     SimpleIntegerProperty id;
     SimpleStringProperty name;
-    SimpleIntegerProperty amount;
-    SimpleStringProperty lowStockDate;
-    SimpleStringProperty outOfStockDate;
+    SimpleIntegerProperty availability;
+    SimpleIntegerProperty demand;
 
-    public ProductModel(int id, String name, int amount, LocalDate lowStockDate, LocalDate outOfStockDate){
+    public ProductModel(int id, String name, int availability, int demand){
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
-        this.amount = new SimpleIntegerProperty(amount);
-        this.lowStockDate = new SimpleStringProperty(lowStockDate.toString());
-        this.outOfStockDate = new SimpleStringProperty(outOfStockDate.toString());
+        this.availability = new SimpleIntegerProperty(availability);
+        this.demand = new SimpleIntegerProperty(demand);
     }
 
     public int getId () {
@@ -28,15 +26,11 @@ public class ProductModel {
     public String getName() {
         return name.get();
     }
-    public int getAmount () {
-        return amount.get();
-    }
 
-    public String getLowStockDate() {
-        return lowStockDate.get();
+    public int getAvailability() {
+        return availability.get();
     }
-
-    public String getOutOfStockDate() {
-        return outOfStockDate.get();
+    public int getDemand() {
+        return demand.get();
     }
 }
