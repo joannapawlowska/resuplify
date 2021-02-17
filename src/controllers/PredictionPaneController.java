@@ -7,11 +7,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import jfxtras.scene.control.LocalDatePicker;
 
 import java.net.URL;
@@ -40,6 +38,9 @@ public class PredictionPaneController implements Initializable {
     public TableColumn<ProductModel, String> demandColumn;
 
     @FXML
+    public TableColumn<ProductModel, Void> buttonColumn;
+
+    @FXML
     public TextField searchBox;
 
     @FXML
@@ -50,6 +51,7 @@ public class PredictionPaneController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customizeDatePicker();
         initializeProductTableColumns();
+        addButtonToTable();
         initializeSearchBox();
 
         productTable.setItems(filteredData);
@@ -64,6 +66,39 @@ public class PredictionPaneController implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("Availability"));
         demandColumn.setCellValueFactory(new PropertyValueFactory<>("Demand"));
+    }
+
+    private void addButtonToTable() {
+
+        Callback<TableColumn<ProductModel, Void>, TableCell<ProductModel, Void>> cellFactory = new Callback<TableColumn<ProductModel, Void>, TableCell<ProductModel, Void>>() {
+            @Override
+            public TableCell<ProductModel, Void> call(final TableColumn<ProductModel, Void> param) {
+                final TableCell<ProductModel, Void> cell = new TableCell<ProductModel, Void>() {
+
+                    private final SwitchButton btn = new SwitchButton();
+
+//                    {
+//                        btn.setOnAction((ActionEvent event) -> {
+//                            ProductModel data = getTableView().getItems().get(getIndex());
+//                            System.out.println("selectedData: " + data);
+//                        });
+//                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        buttonColumn.setCellFactory(cellFactory);
     }
 
     private void initializeSearchBox(){

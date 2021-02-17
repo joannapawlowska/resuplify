@@ -76,11 +76,16 @@
     -fx-padding: 0;
     -fx-border-width: 0 0 1 0px;
     -fx-border-color: -primary-color;
+    -fx-alignment: CENTER_LEFT;
 }
 
 .table-row-cell:hover {
     -fx-background-color: -hover-primary-color;
 }
+
+/*.table-row-cell:selected {*/
+/*    -fx-background-color: -accent-color;*/
+/*}*/
 
 .table-row-cell:empty {
     -fx-background-color: transparent;

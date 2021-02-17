@@ -1,0 +1,46 @@
+@import "color-variables.css";
+
+.switch-btn {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+}
+
+.on-label {
+    -fx-background-radius: 20 0 0 20px;
+    -fx-alignment: CENTER;
+    -fx-border-width: 1;
+    -fx-border-radius: 20 0 0 20px;
+    -fx-border-color: -primary-font-color;
+    -fx-text-fill: -primary-font-color;
+    -fx-background-color: transparent;
+}
+
+.off-label {
+    -fx-background-radius: 0 20 20 0px;
+    -fx-alignment: CENTER;
+    -fx-border-width: 1;
+    -fx-border-radius: 0 20 20 0px;
+    -fx-border-color: -accent-color;
+    -fx-text-fill: -accent-color;
+    -fx-background-color: transparent;
+}
+
+.on-label-selected {
+    -fx-background-radius: 20 0 0 20px;
+    -fx-alignment: CENTER;
+    -fx-border-width: 1;
+    -fx-border-radius: 20 0 0 20px;
+    -fx-border-color: -accent-color;
+    -fx-text-fill: -root-color;
+    -fx-background-color: -accent-color;
+}
+
+.off-label-selected {
+    -fx-background-radius: 0 20 20 0px;
+    -fx-alignment: CENTER;
+    -fx-border-width: 1;
+    -fx-border-radius: 0 20 20 0px;
+    -fx-border-color: -primary-font-color;
+    -fx-text-fill: -root-color;
+    -fx-background-color: -primary-font-color;
+}
