@@ -70,19 +70,20 @@ public class PredictionPaneController implements Initializable {
 
     private void addButtonToTable() {
 
-        Callback<TableColumn<ProductModel, Void>, TableCell<ProductModel, Void>> cellFactory = new Callback<TableColumn<ProductModel, Void>, TableCell<ProductModel, Void>>() {
+        Callback<TableColumn<ProductModel, Void>, TableCell<ProductModel, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<ProductModel, Void> call(final TableColumn<ProductModel, Void> param) {
-                final TableCell<ProductModel, Void> cell = new TableCell<ProductModel, Void>() {
+                final TableCell<ProductModel, Void> cell = new TableCell<>() {
 
-                    private final SwitchButton btn = new SwitchButton();
+                    private SwitchButton btn = new SwitchButton();
 
-//                    {
-//                        btn.setOnAction((ActionEvent event) -> {
-//                            ProductModel data = getTableView().getItems().get(getIndex());
-//                            System.out.println("selectedData: " + data);
-//                        });
-//                    }
+                    {
+                        btn.setOnMouseClicked(mouseEvent -> {
+                            btn.setSwitchedOn(!btn.isSwitchedOn());
+                            ProductModel data = getTableView().getItems().get(getIndex());
+                            data.setToStockUp(btn.isSwitchedOn());
+                        });
+                    }
 
                     @Override
                     public void updateItem(Void item, boolean empty) {
@@ -90,6 +91,8 @@ public class PredictionPaneController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            ProductModel data = getTableView().getItems().get(getIndex());
+                            btn.setSwitchedOn(data.isToStockUp());
                             setGraphic(btn);
                         }
                     }
@@ -128,26 +131,52 @@ public class PredictionPaneController implements Initializable {
     }
 
     private ObservableList<ProductModel> productModels = FXCollections.observableArrayList(
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200),
-            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2),
-            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1),
-            new ProductModel(48, "Big shopper bag Johnson", 73, 5),
-            new ProductModel(211, "Torba damska shopper granat", 7, 20),
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200),
-            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2),
-            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1),
-            new ProductModel(48, "Big shopper bag Johnson", 73, 5),
-            new ProductModel(211, "Torba damska shopper granat", 7, 20));
+            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),
+            new ProductModel(210, "Torba damska shopper granat", 7, 3, true),
+            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
+            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
+            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
+            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
+            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
+            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
+            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
+            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
+            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
+            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
+            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
+            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
+            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
+            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
+            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
+            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
+            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true));
 
     private FilteredList<ProductModel> filteredData = new FilteredList<>(FXCollections.observableList(productModels));
 }

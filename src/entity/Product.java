@@ -10,7 +10,7 @@ public class Product {
     int amount;
     LocalDate outOfStockDate;
 
-    public Product(int id, String name, int amount, int lowStockDate, LocalDate outOfStockData) {
+    public Product(int id, String name, int amount, LocalDate outOfStockData) {
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -25,13 +25,6 @@ public class Product {
         this.id = id;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     public String getName() {
         return name;
@@ -39,6 +32,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public LocalDate getOutOfStockDate() {

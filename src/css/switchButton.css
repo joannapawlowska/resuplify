@@ -1,46 +1,34 @@
 @import "color-variables.css";
 
 .switch-btn {
-    -fx-background-color: transparent;
-    -fx-border-width: 0px;
+    -fx-padding: 0 3 0 3px;
+    -fx-background-radius: 30px;
 }
 
-.on-label {
-    -fx-background-radius: 20 0 0 20px;
-    -fx-alignment: CENTER;
-    -fx-border-width: 1;
-    -fx-border-radius: 20 0 0 20px;
-    -fx-border-color: -primary-font-color;
+.switch-btn:switched-on {
+    -fx-background-color: linear-gradient(to right, #ff9405, #ff8600, #ff7800, #ff6800, #ff5702);
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-alignment: CENTER-RIGHT;
+}
+
+.switch-btn:switched-off {
+    -fx-background-color: linear-gradient(to right, #3c3f46, #393c42, #36383f, #33353b, #303238);
+    -fx-alignment: CENTER-RIGHT;
+    -fx-text-alignment: CENTER-LEFT;
+}
+
+.switch-slider {
+    -fx-fill: -primary-font-color;
+}
+
+.switch-btn.label {
     -fx-text-fill: -primary-font-color;
-    -fx-background-color: transparent;
 }
 
-.off-label {
-    -fx-background-radius: 0 20 20 0px;
-    -fx-alignment: CENTER;
-    -fx-border-width: 1;
-    -fx-border-radius: 0 20 20 0px;
-    -fx-border-color: -accent-color;
-    -fx-text-fill: -accent-color;
-    -fx-background-color: transparent;
+.switch-btn:switched-on .label {
+    -fx-alignment: CENTER-RIGHT;
 }
 
-.on-label-selected {
-    -fx-background-radius: 20 0 0 20px;
-    -fx-alignment: CENTER;
-    -fx-border-width: 1;
-    -fx-border-radius: 20 0 0 20px;
-    -fx-border-color: -accent-color;
-    -fx-text-fill: -root-color;
-    -fx-background-color: -accent-color;
-}
-
-.off-label-selected {
-    -fx-background-radius: 0 20 20 0px;
-    -fx-alignment: CENTER;
-    -fx-border-width: 1;
-    -fx-border-radius: 0 20 20 0px;
-    -fx-border-color: -primary-font-color;
-    -fx-text-fill: -root-color;
-    -fx-background-color: -primary-font-color;
+.switch-btn:switched-off .label {
+    -fx-alignment: CENTER-LEFT;
 }
