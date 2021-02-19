@@ -5,17 +5,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.scene.control.LocalDatePicker;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class PredictionPaneController implements Initializable {
 
@@ -46,6 +52,8 @@ public class PredictionPaneController implements Initializable {
     @FXML
     public Button predictButton, saveToFileButton;
 
+    private FileSaver fileSaver;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,7 +61,6 @@ public class PredictionPaneController implements Initializable {
         initializeProductTableColumns();
         addButtonToTable();
         initializeSearchBox();
-
         productTable.setItems(filteredData);
     }
 
@@ -125,9 +132,26 @@ public class PredictionPaneController implements Initializable {
                 (Integer.valueOf(product.getDemand()).toString().equals(searchText));
     }
 
+    @FXML
     public void handleClearSearchBox(ActionEvent event) {
         searchBox.setText("");
         event.consume();
+    }
+
+    @FXML
+    public void handleSaveToFileButton(ActionEvent event){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        fileSaver = new FileSaver(stage);
+        List<ProductModel> dataToSave = filterProductsToSave();
+        fileSaver.saveData(dataToSave);
+    }
+
+    private List<ProductModel> filterProductsToSave(){
+        return filteredData
+                .stream()
+                .filter(productModel -> productModel.isToStockUp())
+                .collect(Collectors.toList()
+                );
     }
 
     private ObservableList<ProductModel> productModels = FXCollections.observableArrayList(

@@ -6,7 +6,7 @@
 }
 
 .switch-btn:switched-on {
-    -fx-background-color: linear-gradient(to right, #ff9405, #ff8600, #ff7800, #ff6800, #ff5702);
+    -fx-background-color: linear-gradient(to right, #08a369, #05b272, #03c27b, #01d284, #00e28d);
     -fx-alignment: CENTER-LEFT;
     -fx-text-alignment: CENTER-RIGHT;
 }

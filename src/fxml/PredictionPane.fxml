@@ -81,7 +81,7 @@
                               <String fx:value="predict" />
                            </styleClass>
                         </Button>
-                        <Button fx:id="saveToFileButton" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="290.0" text="Save to file">
+                        <Button fx:id="saveToFileButton" onAction="#handleSaveToFileButton" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="290.0" text="Save to file">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
