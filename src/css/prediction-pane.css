@@ -54,17 +54,11 @@
 
 .search-button {
     -fx-background-color: transparent;
-    -fx-background-image: url('/img/searchIcon.png');
-    -fx-background-size: 20px 20px;
-    -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 .clear-button {
     -fx-background-color: transparent;
-    -fx-background-image: url('/img/clearIcon.png');
-    -fx-background-size: 15px 15px;
-    -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
