@@ -1,52 +1,49 @@
 package entity;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDate;
 
 public class Product {
 
-    int id;
-    String name;
-    int amount;
+    SimpleIntegerProperty id;
+    SimpleStringProperty name;
+    SimpleIntegerProperty availability;
+    SimpleIntegerProperty demand;
+    SimpleBooleanProperty toStockUp;
     LocalDate outOfStockDate;
 
-    public Product(int id, String name, int amount, LocalDate outOfStockData) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-        this.outOfStockDate = outOfStockData;
+    public Product(int id, String name, int availability, int demand, boolean toStockUp){
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.availability = new SimpleIntegerProperty(availability);
+        this.demand = new SimpleIntegerProperty(demand);
+        this.toStockUp = new SimpleBooleanProperty(toStockUp);
     }
 
-    public int getId() {
-        return id;
+    public int getId () {
+        return id.get();
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getAvailability() {
+        return availability.get();
     }
 
-    public int getAmount() {
-        return amount;
+    public int getDemand() {
+        return demand.get();
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public boolean isToStockUp() {
+        return toStockUp.get();
     }
 
-    public LocalDate getOutOfStockDate() {
-        return outOfStockDate;
-    }
-
-    public void setOutOfStockDate(LocalDate outOfStockDate) {
-        this.outOfStockDate = outOfStockDate;
+    public void setToStockUp(boolean toStockUp) {
+        this.toStockUp.set(toStockUp);
     }
 }

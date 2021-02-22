@@ -3,10 +3,6 @@ package controllers;
 import components.DataFileWriter;
 import components.SwitchButton;
 import entity.Product;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -65,6 +61,7 @@ public class PredictionPaneController implements Initializable {
         addButtonToTable();
         initializeSearchBox();
         initializeAmountLabel();
+        updateAmountLabel();
         productTable.setItems(filteredProducts);
     }
 
@@ -93,7 +90,7 @@ public class PredictionPaneController implements Initializable {
                             btn.setSwitchedOn(!btn.isSwitchedOn());
                             Product data = getTableView().getItems().get(getIndex());
                             data.setToStockUp(btn.isSwitchedOn());
-                            amountLabel.setText(String.valueOf(selectProductsToSave().size()));
+                            updateAmountLabel();
                         });
                     }
 
@@ -139,8 +136,12 @@ public class PredictionPaneController implements Initializable {
 
     private void initializeAmountLabel(){
         filteredProducts.addListener((ListChangeListener.Change<? extends Product> product) ->
-            amountLabel.setText(String.valueOf(selectProductsToSave().size()))
+                updateAmountLabel()
         );
+    }
+
+    private void updateAmountLabel(){
+        amountLabel.setText(String.valueOf(selectProductsToSave().size()));
     }
 
     @FXML

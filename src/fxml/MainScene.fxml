@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,18 +41,33 @@
                         <ToggleGroup fx:id="menuButtons" />
                      </toggleGroup>
                      <graphic>
-                              <SVGPath content="M40,60 C42,48 44,30 25,32" />
+                              <SVGPath content="M 34.492 11.333 l -0.059 -8.457 c -0.004 -0.557 -0.304 -1.069 -0.787 -1.344 c -0.484 -0.275 -1.078 -0.272 -1.558 0.009 l -7.422 4.351 c -0.479 0.281 -0.772 0.79 -0.769 1.346 c 0.004 0.556 0.305 1.052 0.789 1.326 L 26.4 9.53 l -5.314 9.357 l -8.422 -4.784 c -0.001 0 -0.001 0 -0.001 0 c -1.163 -0.661 -2.641 -0.254 -3.302 0.91 L 0.816 30.055 c -0.66 1.162 -0.253 2.641 0.91 3.302 c 0.377 0.214 0.789 0.316 1.193 0.316 c 0.843 0 1.662 -0.441 2.108 -1.227 l 7.348 -12.937 l 8.423 4.785 c 0.378 0.215 0.788 0.316 1.194 0.316 c 0.843 0 1.662 -0.441 2.108 -1.227 l 6.52 -11.477 l 1.546 0.915 c 0.238 0.136 0.504 0.18 0.769 0.18 c 0.002 0 0.004 0 0.007 0 c 0.86 0 1.557 -0.674 1.557 -1.534 C 34.5 11.415 34.497 11.385 34.492 11.333 Z" />
                      </graphic>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
                   </RadioButton>
-                  <RadioButton fx:id="settingsPaneBtn" contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handleSettingsPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Settings" toggleGroup="$menuButtons">
+                  <RadioButton contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handleSettingsPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Settings" toggleGroup="$menuButtons">
                      <graphic>
-                              <SVGPath content="M40,60 C42,48 44,30 25,32" />
+                              <SVGPath content="M 33.449 14.618 l -2.229 -0.35 c -0.353 -1.59 -0.957 -3.078 -1.803 -4.411 l 1.374 -1.86 c 0.379 -0.514 0.323 -1.304 -0.128 -1.755 L 28.755 4.33 c -0.452 -0.45 -1.237 -0.512 -1.753 -0.134 l -1.859 1.364 c -1.334 -0.848 -2.821 -1.475 -4.413 -1.829 l -0.349 -2.183 C 20.284 0.919 19.684 0.5 19.047 0.5 h -2.706 c -0.637 0 -1.237 0.419 -1.335 1.049 l -0.35 2.231 c -1.591 0.354 -3.079 0.956 -4.413 1.803 l -1.86 -1.376 C 7.869 3.831 7.079 3.885 6.628 4.336 L 4.716 6.245 c -0.451 0.45 -0.512 1.239 -0.134 1.753 l 1.364 1.859 c -0.847 1.334 -1.474 2.821 -1.828 4.411 l -2.375 0.351 C 1.112 14.716 0.5 15.318 0.5 15.955 v 2.704 c 0 0.637 0.612 1.237 1.243 1.334 l 2.327 0.353 c 0.354 1.592 1.006 3.076 1.854 4.413 l -1.353 1.86 c -0.377 0.512 -0.311 1.302 0.141 1.75 l 1.915 1.915 c 0.451 0.452 1.242 0.509 1.756 0.133 l 1.861 -1.363 c 1.333 0.85 2.822 1.473 4.413 1.828 l 0.351 2.378 c 0.097 0.63 0.698 1.24 1.335 1.24 h 2.706 c 0.637 0 1.237 -0.61 1.334 -1.24 l 0.35 -2.331 c 1.591 -0.353 3.079 -1.004 4.412 -1.85 l 1.86 1.349 c 0.516 0.38 1.303 0.313 1.755 -0.139 l 1.914 -1.913 c 0.448 -0.452 0.509 -1.244 0.134 -1.756 l -1.364 -1.861 c 0.847 -1.337 1.473 -2.821 1.828 -4.413 l 2.18 -0.352 c 0.631 -0.098 1.051 -0.698 1.051 -1.335 v -2.704 C 34.5 15.318 34.08 14.716 33.449 14.618 Z M 17.5 24.5 c -3.866 0 -7 -3.137 -7 -7 c 0 -3.866 3.134 -7 7 -7 c 3.864 0 7 3.134 7 7 C 24.5 21.363 21.364 24.5 17.5 24.5 Z" />
                      </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="11.0" />
+                     </padding>
                   </RadioButton>
-                  <RadioButton fx:id="logOutPaneBtn" contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handleLogOutPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Log out" toggleGroup="$menuButtons">
+                  <RadioButton contentDisplay="TOP" minHeight="100.0" mnemonicParsing="false" onAction="#handleLogOutPaneBtn" prefHeight="100.0" prefWidth="100.0" styleClass="menu-btn" text="Log out" toggleGroup="$menuButtons">
                      <graphic>
-                              <SVGPath content="M40,60 C42,48 44,30 25,32" />
+                              <SVGPath content="M 24.953 5.028 c -1.187 -0.642 -2.669 -0.201 -3.313 0.986 c -0.642 1.187 -0.201 2.669 0.986 3.311 c 3.493 1.892 5.663 5.53 5.663 9.498 c 0 5.95 -4.841 10.791 -10.79 10.791 c -5.95 0 -10.79 -4.841 -10.79 -10.791 c 0 -3.961 2.164 -7.597 5.648 -9.489 c 1.186 -0.645 1.625 -2.128 0.981 -3.313 s -2.128 -1.625 -3.313 -0.98 c -5.06 2.748 -8.203 8.03 -8.203 13.783 C 1.824 27.468 8.856 34.5 17.5 34.5 c 8.645 0 15.676 -7.032 15.676 -15.677 C 33.176 13.061 30.025 7.774 24.953 5.028 Z M 17 18.796 c 1.35 0 2 -1.094 2 -2.443 V 2.943 c 0 -1.35 -0.65 -2.443 -2 -2.443 s -2 1.094 -2 2.443 v 13.409 C 15 17.702 15.65 18.796 17 18.796 Z" />
                      </graphic>
+                     <padding>
+                        <Insets left="12.0" />
+                     </padding>
                   </RadioButton>
                   </children>
               </VBox>
