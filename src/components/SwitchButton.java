@@ -1,4 +1,4 @@
-package controllers;
+package components;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,7 +19,7 @@ public class SwitchButton extends StackPane {
     public SwitchButton() {
         setSize();
         setStylesheetAndStyleClasses();
-        setCurrentButtonStyle();
+        setButtonCurrentStyle();
         addAction();
         getChildren().addAll(label, slider);
     }
@@ -42,7 +42,7 @@ public class SwitchButton extends StackPane {
         slider.getStyleClass().add("switch-slider");
     }
 
-    private void setCurrentButtonStyle(){
+    private void setButtonCurrentStyle(){
         if (switchedOn.get()) {
             setSwitchedOnStyle();
         } else {
@@ -63,7 +63,7 @@ public class SwitchButton extends StackPane {
     }
 
     private void addAction() {
-        switchedOn.addListener(e -> setCurrentButtonStyle());
+        switchedOn.addListener(e -> setButtonCurrentStyle());
     }
 
     public boolean isSwitchedOn() {
