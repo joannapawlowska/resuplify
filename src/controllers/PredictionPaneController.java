@@ -1,18 +1,21 @@
 package controllers;
 
-import entity.ProductModel;
+import components.DataFileWriter;
+import components.SwitchButton;
+import entity.Product;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.scene.control.LocalDatePicker;
 
@@ -29,22 +32,22 @@ public class PredictionPaneController implements Initializable {
     LocalDatePicker datePicker;
 
     @FXML
-    public TableView<ProductModel> productTable;
+    public TableView<Product> productTable;
 
     @FXML
-    public TableColumn<ProductModel, Integer> idColumn;
+    public TableColumn<Product, Integer> idColumn;
 
     @FXML
-    public TableColumn<ProductModel, String> nameColumn;
+    public TableColumn<Product, String> nameColumn;
 
     @FXML
-    public TableColumn<ProductModel, Integer> availabilityColumn;
+    public TableColumn<Product, Integer> availabilityColumn;
 
     @FXML
-    public TableColumn<ProductModel, String> demandColumn;
+    public TableColumn<Product, String> demandColumn;
 
     @FXML
-    public TableColumn<ProductModel, Void> buttonColumn;
+    public TableColumn<Product, Void> buttonColumn;
 
     @FXML
     public TextField searchBox;
@@ -52,7 +55,7 @@ public class PredictionPaneController implements Initializable {
     @FXML
     public Button predictButton, saveToFileButton;
 
-    private FileSaver fileSaver;
+    @FXML Label amountLabel;
 
 
     @Override
@@ -61,7 +64,8 @@ public class PredictionPaneController implements Initializable {
         initializeProductTableColumns();
         addButtonToTable();
         initializeSearchBox();
-        productTable.setItems(filteredData);
+        initializeAmountLabel();
+        productTable.setItems(filteredProducts);
     }
 
     private void customizeDatePicker(){
@@ -77,18 +81,19 @@ public class PredictionPaneController implements Initializable {
 
     private void addButtonToTable() {
 
-        Callback<TableColumn<ProductModel, Void>, TableCell<ProductModel, Void>> cellFactory = new Callback<>() {
+        Callback<TableColumn<Product, Void>, TableCell<Product, Void>> cellFactory = new Callback<>() {
             @Override
-            public TableCell<ProductModel, Void> call(final TableColumn<ProductModel, Void> param) {
-                final TableCell<ProductModel, Void> cell = new TableCell<>() {
+            public TableCell<Product, Void> call(final TableColumn<Product, Void> param) {
+                final TableCell<Product, Void> cell = new TableCell<>() {
 
                     private SwitchButton btn = new SwitchButton();
 
                     {
                         btn.setOnMouseClicked(mouseEvent -> {
                             btn.setSwitchedOn(!btn.isSwitchedOn());
-                            ProductModel data = getTableView().getItems().get(getIndex());
+                            Product data = getTableView().getItems().get(getIndex());
                             data.setToStockUp(btn.isSwitchedOn());
+                            amountLabel.setText(String.valueOf(selectProductsToSave().size()));
                         });
                     }
 
@@ -98,7 +103,7 @@ public class PredictionPaneController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            ProductModel data = getTableView().getItems().get(getIndex());
+                            Product data = getTableView().getItems().get(getIndex());
                             btn.setSwitchedOn(data.isToStockUp());
                             setGraphic(btn);
                         }
@@ -114,22 +119,28 @@ public class PredictionPaneController implements Initializable {
     private void initializeSearchBox(){
         searchBox.setPromptText("Search");
         searchBox.textProperty().addListener((observable, oldValue, newValue) ->
-                filteredData.setPredicate(createPredicate(newValue))
+                filteredProducts.setPredicate(createPredicate(newValue))
         );
     }
 
-    private Predicate<ProductModel> createPredicate(String searchText){
-        return productModel -> {
+    private Predicate<Product> createPredicate(String searchText){
+        return product -> {
             if (searchText == null || searchText.isEmpty()) return true;
-            return searchFindsProduct(searchText, productModel);
+            return searchFindsProduct(searchText, product);
         };
     }
 
-    private boolean searchFindsProduct(String searchText, ProductModel product) {
+    private boolean searchFindsProduct(String searchText, Product product) {
         return (Integer.valueOf(product.getId()).toString().equals(searchText)) ||
                 (product.getName().toLowerCase().contains(searchText.toLowerCase())) ||
                 (Integer.valueOf(product.getAvailability()).toString().equals(searchText)) ||
                 (Integer.valueOf(product.getDemand()).toString().equals(searchText));
+    }
+
+    private void initializeAmountLabel(){
+        filteredProducts.addListener((ListChangeListener.Change<? extends Product> product) ->
+            amountLabel.setText(String.valueOf(selectProductsToSave().size()))
+        );
     }
 
     @FXML
@@ -140,67 +151,66 @@ public class PredictionPaneController implements Initializable {
 
     @FXML
     public void handleSaveToFileButton(ActionEvent event){
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        fileSaver = new FileSaver(stage);
-        List<ProductModel> dataToSave = filterProductsToSave();
-        fileSaver.saveData(dataToSave);
+        DataFileWriter dataFileWriter = new DataFileWriter();
+        List<Product> productsToSave = selectProductsToSave();
+        dataFileWriter.write(productsToSave);
     }
 
-    private List<ProductModel> filterProductsToSave(){
-        return filteredData
+    private List<Product> selectProductsToSave(){
+        return filteredProducts
                 .stream()
-                .filter(productModel -> productModel.isToStockUp())
+                .filter(product -> product.isToStockUp())
                 .collect(Collectors.toList()
                 );
     }
 
-    private ObservableList<ProductModel> productModels = FXCollections.observableArrayList(
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3, true),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
-            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
-            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
-            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
-            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
-            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
-            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true),
-            new ProductModel(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new ProductModel(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new ProductModel(48, "Big shopper bag Johnson", 73, 5,true),
-            new ProductModel(211, "Torba damska shopper granat", 7, 20,true),
-            new ProductModel(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new ProductModel(210, "Torba damska shopper granat", 7, 3,true),
-            new ProductModel(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new ProductModel(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new ProductModel(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new ProductModel(267, "Torba damska shopper zielen", 100, 200,true));
+    private ObservableList<Product> products = FXCollections.observableArrayList(
+            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),
+            new Product(210, "Torba damska shopper granat", 7, 3, true),
+            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new Product(267, "Torba damska shopper zielen", 100, 200,true),
+            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new Product(48, "Big shopper bag Johnson", 73, 5,true),
+            new Product(211, "Torba damska shopper granat", 7, 20,true),
+            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new Product(210, "Torba damska shopper granat", 7, 3,true),
+            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new Product(267, "Torba damska shopper zielen", 100, 200,true),
+            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new Product(48, "Big shopper bag Johnson", 73, 5,true),
+            new Product(211, "Torba damska shopper granat", 7, 20,true),
+            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new Product(210, "Torba damska shopper granat", 7, 3,true),
+            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new Product(267, "Torba damska shopper zielen", 100, 200,true),
+            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new Product(48, "Big shopper bag Johnson", 73, 5,true),
+            new Product(211, "Torba damska shopper granat", 7, 20,true),
+            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new Product(210, "Torba damska shopper granat", 7, 3,true),
+            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new Product(267, "Torba damska shopper zielen", 100, 200,true),
+            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
+            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
+            new Product(48, "Big shopper bag Johnson", 73, 5,true),
+            new Product(211, "Torba damska shopper granat", 7, 20,true),
+            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
+            new Product(210, "Torba damska shopper granat", 7, 3,true),
+            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
+            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
+            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
+            new Product(267, "Torba damska shopper zielen", 100, 200,true));
 
-    private FilteredList<ProductModel> filteredData = new FilteredList<>(FXCollections.observableList(productModels));
+    private FilteredList<Product> filteredProducts = new FilteredList<>(FXCollections.observableList(products));
 }

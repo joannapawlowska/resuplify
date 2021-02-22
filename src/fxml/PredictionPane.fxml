@@ -50,7 +50,7 @@
                <children>
                   <VBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="290.0" styleClass="information-box">
                      <children>
-                        <Label alignment="CENTER" lineSpacing="10.0" styleClass="amount-label" text="273" />
+                        <Label alignment="CENTER" lineSpacing="10.0" fx:id="amountLabel" styleClass="amount-label" text="0"/>
                         <Label styleClass="description-label" text="Products to stock up" />
                      </children>
                   </VBox>
@@ -81,7 +81,7 @@
                               <String fx:value="predict" />
                            </styleClass>
                         </Button>
-                        <Button fx:id="saveToFileButton" onAction="#handleSaveToFileButton" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="290.0" text="Save to file">
+                        <Button fx:id="saveToFileButton" minHeight="35.0" mnemonicParsing="false" onAction="#handleSaveToFileButton" prefHeight="35.0" prefWidth="290.0" text="Save to file">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
