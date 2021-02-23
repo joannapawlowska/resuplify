@@ -25,15 +25,15 @@ public class SwitchButton extends StackPane {
     }
 
     private void setSize(){
-        setMinSize(60, 30);
-        setPrefSize(60, 30);
-        setMaxSize(60, 30);
+        setMinSize(50, 25);
+        setPrefSize(50, 25);
+        setMaxSize(50, 25);
 
-        label.setMinSize(45, 30);
-        label.setPrefSize(45, 30);
-        label.setMaxSize(45, 30);
+        label.setMinSize(39, 25);
+        label.setPrefSize(39, 25);
+        label.setMaxSize(39, 25);
 
-        slider.setRadius(11);
+        slider.setRadius(9);
     }
 
     private void setStylesheetAndStyleClasses() {
