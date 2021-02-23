@@ -46,4 +46,6 @@ public class Product {
     public void setToStockUp(boolean toStockUp) {
         this.toStockUp.set(toStockUp);
     }
+
+    public void setDemand(int demand) { this.demand.set(demand); }
 }

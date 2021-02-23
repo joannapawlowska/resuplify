@@ -47,7 +47,7 @@
 .table-view .column-header-background {
     -fx-background-color: -primary-color;
     -fx-background-radius: 15 15 0 0px;
-    -fx-background-insets: 0, 0, 0;
+    -fx-background-insets: 0;
     /*-fx-background-insets: 0px;*/
     /*-fx-border-insets: 0px;*/
     /*-fx-border-width: 0px;*/
@@ -60,23 +60,24 @@
 
 .table-view .column-header .label {
     -fx-text-background-color: -primary-font-color;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 0 0 0 70px;
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 0 0 0 30px;
     -fx-font-size: 13;
 }
 
-.table-view .table-cell {
+.table-view .table-cell{
+    -fx-label-padding: 5 0 5 0px;
     -fx-border-color: transparent;
-    -fx-padding: 8 0 8 70px;
-    -fx-text-background-color: -primary-font-color;
+    -fx-padding: 7 0 5 30px;
 }
 
 .table-row-cell {
     -fx-background-color: transparent;
-    -fx-padding: 0;
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-background-color: -primary-font-color;
+    -fx-background-insets: 0;
     -fx-border-width: 0 0 1 0px;
     -fx-border-color: -primary-color;
-    -fx-alignment: CENTER_LEFT;
 }
 
 .table-row-cell:hover {
