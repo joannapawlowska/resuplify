@@ -84,9 +84,11 @@
     -fx-background-color: -hover-primary-color;
 }
 
-/*.table-row-cell:selected {*/
-/*    -fx-background-color: -hover-primary-color;*/
-/*}*/
+.table-row-cell:selected .text-field{
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -primary-font-color;
+    -fx-accent: -accent-color;
+}
 
 .table-row-cell:empty {
     -fx-background-color: transparent;

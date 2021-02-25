@@ -1,7 +1,7 @@
 package controllers;
 
 import components.DataFileWriter;
-import components.PositiveIntegerStringConverter;
+import components.NonNegativeIntegerEditingCell;
 import components.SwitchButton;
 import entity.Product;
 import javafx.collections.FXCollections;
@@ -9,15 +9,11 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 import jfxtras.scene.control.LocalDatePicker;
 
 import java.net.URL;
@@ -63,24 +59,22 @@ public class PredictionPaneController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customizeDatePicker();
         initializeProductTableColumns();
+        makeDemandColumnEditable();
         addButtonToTable();
         initializeSearchBox();
         initializeAmountLabel();
         updateAmountLabel();
-        productTable.setItems(filteredProducts);
 
+        productTable.setItems(filteredProducts);
+    }
+
+    private void makeDemandColumnEditable() {
         productTable.setEditable(true);
         demandColumn.setEditable(true);
-        demandColumn.setCellFactory(TextFieldTableCell.forTableColumn(new PositiveIntegerStringConverter()));
-        demandColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Product, Integer>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Product, Integer> event) {
-                if(event.getNewValue() == null)
-                    event.consume();
-                if(event.getNewValue() != null)
-                    ((Product) event.getTableView().getItems().get(event.getTablePosition().getRow())).setDemand(event.getNewValue());
-            }
-        });
+        demandColumn.setCellFactory(col -> new NonNegativeIntegerEditingCell());
+        demandColumn.setOnEditCommit(event ->
+                (event.getTableView().getItems().get(event.getTablePosition().getRow())).setDemand(event.getNewValue())
+        );
     }
 
     private void customizeDatePicker(){
