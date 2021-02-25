@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import jfxtras.scene.control.LocalDatePicker?>
 
-<?import javafx.scene.shape.SVGPath?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/prediction-pane.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PredictionPaneController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <top>
-            <AnchorPane minHeight="32.0" prefHeight="32.0" prefWidth="653.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="30.0" prefHeight="30.0" prefWidth="653.0" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane alignment="CENTER_LEFT" minHeight="32.0" prefHeight="32.0" prefWidth="326.0" styleClass="search-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane alignment="CENTER_LEFT" minHeight="30.0" prefHeight="30.0" prefWidth="326.0" styleClass="search-box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button minHeight="26.0" minWidth="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" styleClass="search-button" StackPane.alignment="CENTER_LEFT">
                            <StackPane.margin>
@@ -46,9 +46,25 @@
                         </Button>
                      </children>
                   </StackPane>
+                  <HBox minHeight="32.0" minWidth="170.0" prefHeight="32.0" prefWidth="160.0" spacing="10.0" AnchorPane.rightAnchor="310.0">
+                     <children>
+                        <Button onAction="#handleCheckAllButton" minHeight="30.0" minWidth="80.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Check all">
+                        <styleClass>
+                           <String fx:value="btn" />
+                           <String fx:value="check-all" />
+                        </styleClass>
+                     </Button>
+                        <Button onAction="#handleUncheckAllButton" minHeight="30.0" minWidth="80.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Uncheck all">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="uncheck-all" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <BorderPane.margin>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="18.0" />
                </BorderPane.margin>
             </AnchorPane>
          </top>
@@ -57,7 +73,7 @@
                <children>
                   <VBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="290.0" styleClass="information-box">
                      <children>
-                        <Label alignment="CENTER" lineSpacing="10.0" fx:id="amountLabel" styleClass="amount-label" text="0"/>
+                        <Label fx:id="amountLabel" alignment="CENTER" lineSpacing="10.0" styleClass="amount-label" text="0" />
                         <Label styleClass="description-label" text="Products to stock up" />
                      </children>
                   </VBox>

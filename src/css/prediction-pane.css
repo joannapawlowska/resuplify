@@ -35,6 +35,22 @@
     -fx-background-color: -hover-primary-color;
 }
 
+.btn.check-all{
+    -fx-background-color: #01d284;
+}
+
+.btn.uncheck-all{
+    -fx-background-color: -primary-color;
+}
+
+.btn.check-all:hover{
+    -fx-background-color: #08a369;
+}
+
+.btn.uncheck-all:hover{
+    -fx-background-color: -hover-primary-color;
+}
+
 .search-box {
     -fx-background-color: #F2F2F2;
     -fx-background-radius: 20;

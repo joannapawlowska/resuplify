@@ -169,6 +169,20 @@ public class PredictionPaneController implements Initializable {
         dataFileWriter.write(productsToSave);
     }
 
+    @FXML
+    public void handleCheckAllButton(ActionEvent event){
+        filteredProducts.forEach(product -> product.setToStockUp(true));
+        updateAmountLabel();
+        productTable.refresh();
+    }
+
+    @FXML
+    public void handleUncheckAllButton(ActionEvent event){
+        filteredProducts.forEach(product -> product.setToStockUp(false));
+        updateAmountLabel();
+        productTable.refresh();
+    }
+
     private List<Product> selectProductsToSave(){
         return filteredProducts
                 .stream()
