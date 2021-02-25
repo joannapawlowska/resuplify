@@ -1,6 +1,7 @@
 package components;
 
 import entity.Product;
+import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
@@ -23,7 +24,11 @@ public class NonNegativeIntegerEditingCell extends TableCell<Product, Integer> {
         createTextFormatter();
         addFormatterAndActionToTextField();
 
-        textProperty().bind(itemProperty().asString());
+        textProperty().bind(Bindings
+                .when(emptyProperty())
+                .then((String)null)
+                .otherwise(itemProperty().asString()));
+
         setGraphic(textField);
     }
 
