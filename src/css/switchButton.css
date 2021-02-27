@@ -1,34 +1,18 @@
-@import "color-variables.css";
-
 .switch-btn {
     -fx-padding: 0 3 0 3px;
     -fx-background-radius: 30px;
 }
 
 .switch-btn:switched-on {
-    -fx-background-color: linear-gradient(to right, #08a369, #05b272, #03c27b, #01d284, #00e28d);
-    -fx-alignment: CENTER-LEFT;
-    -fx-text-alignment: CENTER-RIGHT;
+    -fx-background-color: -color4;
+    -fx-alignment: CENTER-RIGHT;
 }
 
 .switch-btn:switched-off {
-    -fx-background-color: linear-gradient(to right, #3c3f46, #393c42, #36383f, #33353b, #303238);
-    -fx-alignment: CENTER-RIGHT;
-    -fx-text-alignment: CENTER-LEFT;
+    -fx-background-color: -color2;
+    -fx-alignment: CENTER-LEFT;
 }
 
 .switch-slider {
-    -fx-fill: -primary-font-color;
-}
-
-.switch-btn.label {
-    -fx-text-fill: -primary-font-color;
-}
-
-.switch-btn:switched-on .label {
-    -fx-alignment: CENTER-RIGHT;
-}
-
-.switch-btn:switched-off .label {
-    -fx-alignment: CENTER-LEFT;
+    -fx-fill: -color1;
 }
