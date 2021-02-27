@@ -1,5 +1,3 @@
-@import "color-variables.css";
-
 .CalendarPickerControlSkin {
     -fx-background-color: -primary-color;
     -fx-background-radius: 20;
@@ -24,14 +22,14 @@
 }
 
 .CalendarPickerControlSkin .day-button:hover{
-    -fx-background-color: -hover-accent-color;
+    -fx-background-color: -accent-color-hover;
 }
 .CalendarPickerControlSkin .day-button:selected {
     -fx-background-color: -accent-color;
 }
 
 .CalendarPickerControlSkin .today {
-    -fx-background-color: -hover-primary-color;
+    -fx-background-color: derive(-primary-color-hover, 20%);
     -fx-background-radius: 20;
 }
 

@@ -28,12 +28,12 @@
                               <Insets left="8.0" />
                            </StackPane.margin>
                            <graphic>
-                              <SVGPath content="M 18.947 16.27 l -4.714 -4.714 c 0.63 -1.084 0.992 -2.342 0.992 -3.684 c 0 -1.967 -0.766 -3.815 -2.156 -5.206 S 9.83 0.509 7.863 0.509 C 3.803 0.509 0.5 3.813 0.5 7.872 c 0 1.967 0.766 3.815 2.156 5.206 s 3.24 2.157 5.207 2.157 c 1.351 0 2.617 -0.368 3.707 -1.006 l 4.708 4.709 c 0.369 0.369 0.852 0.553 1.335 0.553 c 0.482 0 0.966 -0.184 1.334 -0.553 C 19.685 18.202 19.685 17.007 18.947 16.27 Z M 4.476 11.259 c -0.904 -0.904 -1.402 -2.107 -1.402 -3.387 c 0 -2.642 2.148 -4.79 4.79 -4.79 c 1.279 0 2.482 0.498 3.387 1.402 c 0.905 0.905 1.403 2.108 1.403 3.388 c 0 2.641 -2.149 4.79 -4.79 4.79 C 6.583 12.662 5.381 12.164 4.476 11.259 Z" />
+                              <SVGPath scaleX="0.9" scaleY="0.9" content="M 18.947 16.27 l -4.714 -4.714 c 0.63 -1.084 0.992 -2.342 0.992 -3.684 c 0 -1.967 -0.766 -3.815 -2.156 -5.206 S 9.83 0.509 7.863 0.509 C 3.803 0.509 0.5 3.813 0.5 7.872 c 0 1.967 0.766 3.815 2.156 5.206 s 3.24 2.157 5.207 2.157 c 1.351 0 2.617 -0.368 3.707 -1.006 l 4.708 4.709 c 0.369 0.369 0.852 0.553 1.335 0.553 c 0.482 0 0.966 -0.184 1.334 -0.553 C 19.685 18.202 19.685 17.007 18.947 16.27 Z M 4.476 11.259 c -0.904 -0.904 -1.402 -2.107 -1.402 -3.387 c 0 -2.642 2.148 -4.79 4.79 -4.79 c 1.279 0 2.482 0.498 3.387 1.402 c 0.905 0.905 1.403 2.108 1.403 3.388 c 0 2.641 -2.149 4.79 -4.79 4.79 C 6.583 12.662 5.381 12.164 4.476 11.259 Z" />
                            </graphic>
                         </Button>
                         <TextField fx:id="searchBox">
                            <StackPane.margin>
-                              <Insets left="28.0" right="28.0" />
+                              <Insets left="30.0" right="30.0" />
                            </StackPane.margin>
                         </TextField>
                         <Button minHeight="26.0" minWidth="26.0" mnemonicParsing="false" onAction="#handleClearSearchBox" prefHeight="26.0" prefWidth="26.0" styleClass="clear-button" StackPane.alignment="CENTER_RIGHT">
@@ -41,25 +41,25 @@
                               <Insets right="8.0" />
                            </StackPane.margin>
                            <graphic>
-                              <SVGPath content="M 12.766 10 l 5.662 -5.663 c 0.764 -0.763 0.764 -2.001 0 -2.764 c -0.764 -0.764 -2.001 -0.764 -2.765 0 L 10 7.235 L 4.337 1.573 c -0.763 -0.764 -2.001 -0.764 -2.764 0 c -0.764 0.763 -0.764 2.001 0 2.764 L 7.235 10 l -5.663 5.663 c -0.764 0.764 -0.764 2.001 0 2.765 C 1.955 18.81 2.454 19 2.955 19 s 1.001 -0.19 1.382 -0.572 L 10 12.765 l 5.663 5.663 C 16.045 18.81 16.545 19 17.045 19 c 0.501 0 1.001 -0.19 1.383 -0.572 c 0.764 -0.764 0.764 -2.001 0 -2.765 L 12.766 10 Z" />
+                              <SVGPath scaleX="0.9" scaleY="0.9" content="M 12.766 10 l 5.662 -5.663 c 0.764 -0.763 0.764 -2.001 0 -2.764 c -0.764 -0.764 -2.001 -0.764 -2.765 0 L 10 7.235 L 4.337 1.573 c -0.763 -0.764 -2.001 -0.764 -2.764 0 c -0.764 0.763 -0.764 2.001 0 2.764 L 7.235 10 l -5.663 5.663 c -0.764 0.764 -0.764 2.001 0 2.765 C 1.955 18.81 2.454 19 2.955 19 s 1.001 -0.19 1.382 -0.572 L 10 12.765 l 5.663 5.663 C 16.045 18.81 16.545 19 17.045 19 c 0.501 0 1.001 -0.19 1.383 -0.572 c 0.764 -0.764 0.764 -2.001 0 -2.765 L 12.766 10 Z" />
                               </graphic>
                         </Button>
                      </children>
                   </StackPane>
-                  <HBox minHeight="32.0" minWidth="170.0" prefHeight="32.0" prefWidth="160.0" spacing="10.0" AnchorPane.rightAnchor="310.0">
+                  <HBox minHeight="32.0" minWidth="140.0" prefHeight="32.0" prefWidth="140.0" spacing="10.0" AnchorPane.rightAnchor="325.0">
                      <children>
-                        <Button onAction="#handleCheckAllButton" minHeight="30.0" minWidth="80.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Check all">
-                        <styleClass>
-                           <String fx:value="btn" />
-                           <String fx:value="check-all" />
-                        </styleClass>
-                     </Button>
-                        <Button onAction="#handleUncheckAllButton" minHeight="30.0" minWidth="80.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Uncheck all">
+                        <Button onAction="#handleUncheckAllButton" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Untick all">
                            <styleClass>
                               <String fx:value="btn" />
                               <String fx:value="uncheck-all" />
                            </styleClass>
                         </Button>
+                        <Button onAction="#handleCheckAllButton" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Tick all">
+                        <styleClass>
+                           <String fx:value="btn" />
+                           <String fx:value="check-all" />
+                        </styleClass>
+                     </Button>
                      </children>
                   </HBox>
                </children>
@@ -69,7 +69,7 @@
             </AnchorPane>
          </top>
          <right>
-            <VBox alignment="TOP_CENTER" prefHeight="619.0" prefWidth="280.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="619.0" prefWidth="280.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="290.0" styleClass="information-box">
                      <children>

@@ -1,5 +1,3 @@
-@import "color-variables.css";
-
 .root {
     -fx-background-color: -root-color;
     -fx-font-family: "Charcoal";
@@ -24,7 +22,7 @@
 }
 
 .btn.predict:hover {
-    -fx-background-color: -hover-accent-color;
+    -fx-background-color: -accent-color-hover;
 }
 
 .btn.saveToFile {
@@ -32,40 +30,40 @@
 }
 
 .btn.saveToFile:hover {
-    -fx-background-color: -hover-primary-color;
+    -fx-background-color: -primary-color-hover;
 }
 
 .btn.check-all{
-    -fx-background-color: #01d284;
+    -fx-background-color: -color4;
 }
 
 .btn.uncheck-all{
-    -fx-background-color: -primary-color;
+    -fx-background-color: -color2;
 }
 
 .btn.check-all:hover{
-    -fx-background-color: #08a369;
+    -fx-background-color: derive( -color4, 20%);
 }
 
 .btn.uncheck-all:hover{
-    -fx-background-color: -hover-primary-color;
+    -fx-background-color: derive( -color2, 20%);
 }
 
 .search-box {
-    -fx-background-color: #F2F2F2;
+    -fx-background-color: -secondary-color;
     -fx-background-radius: 20;
     -fx-focus-color : transparent;
 }
 
 .search-box:focused,
 .search-box:hover {
-    -fx-background-color: #D6D5D5;
+    -fx-background-color: -secondary-color-hover;
 }
 
 .text-field {
     -fx-background-color: transparent;
     -fx-focus-color : transparent;
-    -fx-prompt-text-fill: -primary-color;
+    -fx-prompt-text-fill: -secondary-font-color;
 }
 
 .search-button {
@@ -89,7 +87,7 @@
 }
 
 .information-box .amount-label {
-    -fx-font-size: 30;
+    -fx-font-size: 40;
     -fx-alignment: CENTER;
     -fx-font-weight: bold;
     -fx-text-fill: -accent-color;

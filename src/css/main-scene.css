@@ -1,5 +1,3 @@
-@import "color-variables.css";
-
 .root {
     -fx-background-color: -root-color;
     -fx-font-family: "Charcoal";
@@ -21,7 +19,7 @@
 }
 
 .menu-btn:hover {
-    -fx-background-color: -hover-primary-color;
+    -fx-background-color: -primary-color-hover;
     -fx-background-radius: 30px 0 0 30px;
     -fx-text-fill: -accent-color;
 }

@@ -1,0 +1,19 @@
+* {
+    -color1: #f4f4f4;
+    -color2: #cbcbcb;
+    -color3: #7869dd;
+    -color4: #00e28d;
+    -color5: #222327;
+
+    -root-color: -color1;
+
+    -primary-font-color: -color5;
+    -secondary-font-color: -color5;
+
+    -primary-color: -color2;
+    -primary-color-hover:  derive(-color2, 30%);
+    -secondary-color: derive(-color2, 30%);
+    -secondary-color-hover: derive(-color2, 10%);
+    -accent-color: -color3;
+    -accent-color-hover: derive(-color3, 30%);
+}

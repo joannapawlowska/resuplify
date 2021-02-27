@@ -1,5 +1,3 @@
-@import "color-variables.css";
-
 .table-view {
     -fx-background-color: transparent;
     -fx-padding: 0;
@@ -81,7 +79,7 @@
 }
 
 .table-row-cell:hover {
-    -fx-background-color: -hover-primary-color;
+    -fx-background-color: -primary-color-hover;
 }
 
 .table-row-cell:selected .text-field{

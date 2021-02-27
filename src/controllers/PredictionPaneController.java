@@ -147,7 +147,7 @@ public class PredictionPaneController implements Initializable {
     }
 
     private void initializeAmountLabel(){
-        filteredProducts.addListener((ListChangeListener.Change<? extends Product> product) ->
+                filteredProducts.addListener((ListChangeListener.Change<? extends Product> product) ->
                 updateAmountLabel()
         );
     }
