@@ -1,24 +1,24 @@
 package controllers;
 
+import components.Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class MainSceneController {
 
-public class MainSceneController implements Initializable {
-
-    @FXML private AnchorPane predictionPane;
-    @FXML private AnchorPane settingsPane;
-    @FXML private AnchorPane logOutPane;
+    @FXML private AnchorPane mainScene;
+    @FXML private AnchorPane prediction;
+    @FXML private AnchorPane settings;
+    @FXML private AnchorPane logOut;
     @FXML private RadioButton predictionPaneBtn;
+    @FXML public SettingsPaneController settingsPaneController;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        settingsPaneController.injectMainController(this);
         setDefaultSelectedPane();
+        setMode();
     }
 
     private void setDefaultSelectedPane(){
@@ -27,16 +27,33 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private void handlePredictionPaneBtn(ActionEvent actionEvent) {
-        predictionPane.toFront();
+        prediction.toFront();
     }
 
     @FXML
     private void handleSettingsPaneBtn(ActionEvent actionEvent) {
-        settingsPane.toFront();
+        settings.toFront();
     }
 
     @FXML
     private void handleLogOutPaneBtn(ActionEvent actionEvent) {
-        logOutPane.toFront();
+        logOut.toFront();
+    }
+
+    public void setDarkMode(){
+        mainScene.getStylesheets().remove("css/light-mode.css");
+        mainScene.getStylesheets().add("css/dark-mode.css");
+    }
+
+    public void setLightMode(){
+        mainScene.getStylesheets().remove("css/dark-mode.css");
+        mainScene.getStylesheets().add("css/light-mode.css");
+    }
+
+    public void setMode(){
+        if(Settings.isDarkMode())
+            setDarkMode();
+        else
+            setLightMode();
     }
 }

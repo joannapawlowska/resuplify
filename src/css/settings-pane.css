@@ -1,0 +1,5 @@
+.root {
+    -fx-background-color: -root-color;
+    -fx-font-family: "Charcoal";
+    -fx-fill: -primary-font-color;
+}
