@@ -3,3 +3,55 @@
     -fx-font-family: "Charcoal";
     -fx-fill: -primary-font-color;
 }
+
+.btn {
+    -fx-text-fill: -primary-font-color;
+    -fx-font-size: 11;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0;
+}
+
+.btn.save {
+    -fx-background-color: -accent-color;
+    -fx-text-fill: -color1;
+}
+
+.btn.save:hover{
+    -fx-background-color: -accent-color-hover;
+}
+
+.btn.cancel {
+    -fx-background-color: -primary-color;
+}
+
+.btn.cancel:hover{
+    -fx-background-color: -primary-color-hover;
+}
+
+.label{
+    -fx-text-fill: -primary-font-color;
+}
+
+.vbox {
+    -fx-border-width: 1px;
+    -fx-border-color: -primary-color;
+    -fx-border-radius: 20px;
+}
+
+.header {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-padding: 17 0 17 30px;
+    -fx-background-radius: 20 20 0 0px;
+    -fx-background-color: -primary-color;
+}
+
+.text-field {
+    -fx-background-color: -secondary-color;
+    -fx-background-radius: 15;
+    -fx-focus-color : transparent;
+    -fx-text-fill:     -secondary-font-color;
+}
+.text-field:hover {
+    -fx-background-color: -secondary-color-hover;
+}
