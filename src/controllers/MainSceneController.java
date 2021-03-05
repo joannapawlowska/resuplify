@@ -1,6 +1,6 @@
 package controllers;
 
-import components.Settings;
+import components.Preference;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
@@ -14,6 +14,7 @@ public class MainSceneController {
     @FXML private AnchorPane logOut;
     @FXML private RadioButton predictionPaneBtn;
     @FXML public SettingsPaneController settingsPaneController;
+    @FXML public PredictionPaneController predictionPaneController;
 
     public void initialize() {
         settingsPaneController.injectMainController(this);
@@ -23,6 +24,23 @@ public class MainSceneController {
 
     private void setDefaultSelectedPane(){
         predictionPaneBtn.fire();
+    }
+
+    public void setMode(){
+        if(Preference.isDarkMode())
+            setDarkMode();
+        else
+            setLightMode();
+    }
+
+    public void setDarkMode(){
+        mainScene.getStylesheets().remove("css/light-mode.css");
+        mainScene.getStylesheets().add("css/dark-mode.css");
+    }
+
+    public void setLightMode(){
+        mainScene.getStylesheets().remove("css/dark-mode.css");
+        mainScene.getStylesheets().add("css/light-mode.css");
     }
 
     @FXML
@@ -38,22 +56,5 @@ public class MainSceneController {
     @FXML
     private void handleLogOutPaneBtn(ActionEvent actionEvent) {
         logOut.toFront();
-    }
-
-    public void setDarkMode(){
-        mainScene.getStylesheets().remove("css/light-mode.css");
-        mainScene.getStylesheets().add("css/dark-mode.css");
-    }
-
-    public void setLightMode(){
-        mainScene.getStylesheets().remove("css/dark-mode.css");
-        mainScene.getStylesheets().add("css/light-mode.css");
-    }
-
-    public void setMode(){
-        if(Settings.isDarkMode())
-            setDarkMode();
-        else
-            setLightMode();
     }
 }

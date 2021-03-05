@@ -2,8 +2,11 @@ package controllers;
 
 import components.DataFileWriter;
 import components.NonNegativeIntegerEditingCell;
+import components.Preference;
 import components.SwitchButton;
 import entity.Product;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -26,7 +29,7 @@ import java.util.stream.Collectors;
 public class PredictionPaneController implements Initializable {
 
     @FXML
-    LocalDatePicker datePicker;
+    public LocalDatePicker datePicker;
 
     @FXML
     public TableView<Product> productTable;
@@ -47,13 +50,12 @@ public class PredictionPaneController implements Initializable {
     public TableColumn<Product, Void> buttonColumn;
 
     @FXML
-    public TextField searchBox;
+    public TextField searchBox, deliveryTextField;;
 
     @FXML
     public Button predictButton, saveToFileButton;
 
     @FXML Label amountLabel;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,6 +65,7 @@ public class PredictionPaneController implements Initializable {
         addButtonToTable();
         initializeSearchBox();
         initializeAmountLabel();
+        customizeDeliveryTextField();
         updateAmountLabel();
 
         productTable.setItems(filteredProducts);
@@ -154,6 +157,26 @@ public class PredictionPaneController implements Initializable {
 
     private void updateAmountLabel(){
         amountLabel.setText(String.valueOf(selectProductsToSave().size()));
+    }
+
+    public void updateDeliveryTextField() {
+        deliveryTextField.setText(String.valueOf(Preference.getDeliveryDuration()));
+    }
+
+    private void customizeDeliveryTextField() {
+        updateDeliveryTextField();
+        deliveryTextField.textProperty().addListener(new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!isPositiveInteger(newValue)) {
+                    deliveryTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
+    private boolean isPositiveInteger(String text){
+        return text.matches("\\d+");
     }
 
     @FXML

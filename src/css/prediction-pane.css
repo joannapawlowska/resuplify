@@ -19,6 +19,7 @@
 
 .btn.predict {
     -fx-background-color: -accent-color;
+    -fx-text-fill: -color1;
 }
 
 .btn.predict:hover {
@@ -64,6 +65,17 @@
     -fx-background-color: transparent;
     -fx-focus-color : transparent;
     -fx-prompt-text-fill: -secondary-font-color;
+}
+
+.text-field-delivery {
+    -fx-text-fill: -secondary-font-color;
+    -fx-background-color: -secondary-color;
+    -fx-background-radius: 10;
+    -fx-focus-color: transparent;
+}
+
+.text-field-delivery:hover {
+    -fx-background-color: -secondary-color-hover;
 }
 
 .search-button {

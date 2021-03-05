@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/prediction-pane.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PredictionPaneController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <top>
             <AnchorPane minHeight="30.0" prefHeight="30.0" prefWidth="653.0" BorderPane.alignment="CENTER">
                <children>
@@ -79,8 +79,8 @@
                   </VBox>
                   <HBox alignment="CENTER" minHeight="39.0" prefHeight="39.0" prefWidth="290.0" spacing="10.0" styleClass="delivery-box">
                      <children>
-                        <Label styleClass="text-label" text="Expected delivery time:" />
-                        <TextField prefHeight="20.0" prefWidth="22.0">
+                        <Label styleClass="text-label" text="Expected delivery duration:" />
+                        <TextField styleClass="text-field-delivery" fx:id="deliveryTextField" prefHeight="20.0" prefWidth="27.0">
                            <padding>
                               <Insets left="5.0" />
                            </padding>

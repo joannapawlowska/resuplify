@@ -30,21 +30,6 @@ public class SettingsPaneController {
         setDeliveryText();
     }
 
-    private void forceDeliveryTextFieldToBeNumericOnly() {
-        deliveryTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!isPositiveInteger(newValue)) {
-                    deliveryTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
-
-    private boolean isPositiveInteger(String text){
-        return text.matches("\\d+");
-    }
-
     public void injectMainController(MainSceneController msc) {
         mainSceneController = msc;
     }
@@ -77,6 +62,21 @@ public class SettingsPaneController {
         setModeLabels();
     }
 
+    private void forceDeliveryTextFieldToBeNumericOnly() {
+        deliveryTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!isPositiveInteger(newValue)) {
+                    deliveryTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+
+    private boolean isPositiveInteger(String text){
+        return text.matches("\\d+");
+    }
+
     private void setDeliveryText() {
         deliveryTextField.setText(String.valueOf(Preference.getDeliveryDuration()));
     }
@@ -95,5 +95,6 @@ public class SettingsPaneController {
         Preference.updateLightMode(lightModeBtn.isSwitchedOn());
         Preference.updateDeliveryDuration(Integer.parseInt(deliveryTextField.getText()));
         mainSceneController.setMode();
+        mainSceneController.predictionPaneController.updateDeliveryTextField();
     }
 }
