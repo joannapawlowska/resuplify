@@ -2,12 +2,12 @@ package components;
 
 import java.util.prefs.Preferences;
 
-public class Settings {
+public class Preference {
 
-    static Preferences userPreferences = Preferences.userNodeForPackage(Settings.class);
-    private static final String DARK_MODE = "Settings.darkMode";
-    private static final String LIGHT_MODE = "Settings.lightMode";
-    private static final String DELIVERY_DURATION = "Settings.deliveryDuration";
+    static Preferences userPreferences = Preferences.userNodeForPackage(Preference.class);
+    private static final String DARK_MODE = "Preference.darkMode";
+    private static final String LIGHT_MODE = "Preference.lightMode";
+    private static final String DELIVERY_DURATION = "Preference.deliveryDuration";
 
     public static boolean isDarkMode() {
         return userPreferences.getBoolean(DARK_MODE, false);
