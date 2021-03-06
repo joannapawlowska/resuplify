@@ -28,10 +28,9 @@
                      <children>
                         <VBox prefHeight="400.0" prefWidth="300.0" spacing="20.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="300.0" spacing="5.0" styleClass="hbox">
+                              <HBox fx:id="deliveryBox" alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="300.0" spacing="5.0" styleClass="hbox">
                                  <children>
                                     <Label prefHeight="25.0" prefWidth="136.0" text="Default delivery duration:" />
-                                    <TextField fx:id="deliveryTextField" prefHeight="26.0" prefWidth="40.0" />
                                     <Label prefHeight="25.0" prefWidth="25.0" text="days" />
                                  </children>
                               </HBox>

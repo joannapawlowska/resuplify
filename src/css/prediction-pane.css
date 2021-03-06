@@ -70,7 +70,7 @@
 .text-field-delivery {
     -fx-text-fill: -secondary-font-color;
     -fx-background-color: -secondary-color;
-    -fx-background-radius: 10;
+    -fx-background-radius: 20;
     -fx-focus-color: transparent;
 }
 

@@ -29,7 +29,6 @@ public class ProductsTableController {
         initializeProductTableColumns();
         makeDemandColumnEditable();
         addButtonsToTable();
-
         productsTable.setItems(filteredProducts);
     }
 
@@ -98,7 +97,23 @@ public class ProductsTableController {
                 .collect(Collectors.toList());
     }
 
-    public ObservableList<Product> products = FXCollections.observableArrayList(
+    public void checkAllProducts() {
+        filteredProducts.forEach(product -> product.setToStockUp(true));
+    }
+
+    public void uncheckAllProducts() {
+        filteredProducts.forEach(product -> product.setToStockUp(false));
+    }
+
+    public void refreshTableView(){
+        productsTable.refresh();
+    }
+
+    public FilteredList<Product> getFilteredProductsTable(){
+        return filteredProducts;
+    }
+
+    private ObservableList<Product> products = FXCollections.observableArrayList(
             new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),
             new Product(210, "Torba damska shopper granat", 7, 3, true),
             new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
@@ -147,20 +162,4 @@ public class ProductsTableController {
             new Product(267, "Torba damska shopper zielen", 100, 200,true));
 
     private FilteredList<Product> filteredProducts = new FilteredList<>(FXCollections.observableList(products));
-
-    public void checkAllProducts() {
-        filteredProducts.forEach(product -> product.setToStockUp(true));
-    }
-
-    public void uncheckAllProducts() {
-        filteredProducts.forEach(product -> product.setToStockUp(false));
-    }
-
-    public void refreshTableView(){
-        productsTable.refresh();
-    }
-
-    public FilteredList<Product> getFilteredProductsTable(){
-        return filteredProducts;
-    }
 }

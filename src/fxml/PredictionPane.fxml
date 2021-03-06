@@ -77,14 +77,9 @@
                         <Label styleClass="description-label" text="Products to stock up" />
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" minHeight="39.0" prefHeight="39.0" prefWidth="290.0" spacing="10.0" styleClass="delivery-box">
+                  <HBox fx:id="deliveryBox" alignment="CENTER" minHeight="39.0" prefHeight="39.0" prefWidth="290.0" spacing="10.0" styleClass="delivery-box">
                      <children>
                         <Label styleClass="text-label" text="Expected delivery duration:" />
-                        <TextField styleClass="text-field-delivery" fx:id="deliveryTextField" prefHeight="20.0" prefWidth="27.0">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </TextField>
                         <Label styleClass="text-label" text="days" />
                      </children>
                   </HBox>
@@ -95,7 +90,7 @@
                   </StackPane>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Button fx:id="predictButton" minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="290.0" text="Predict">
+                        <Button minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="290.0" text="Predict">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
@@ -104,7 +99,7 @@
                               <String fx:value="predict" />
                            </styleClass>
                         </Button>
-                        <Button fx:id="saveToFileButton" minHeight="35.0" mnemonicParsing="false" onAction="#handleSaveToFileButton" prefHeight="35.0" prefWidth="290.0" text="Save to file">
+                        <Button minHeight="35.0" mnemonicParsing="false" onAction="#handleSaveToFileButton" prefHeight="35.0" prefWidth="290.0" text="Save to file">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
@@ -122,21 +117,11 @@
             </VBox>
          </right>
          <center>
-            <TableView fx:id="productTable" minWidth="500.0" prefHeight="400.0" prefWidth="332.0" stylesheets="@../css/tableView.css" BorderPane.alignment="CENTER">
-               <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="35.0" text="Stock id" />
-                  <TableColumn fx:id="nameColumn" prefWidth="90.0" text="Name" />
-                  <TableColumn fx:id="availabilityColumn" prefWidth="35.0" text="Availability" />
-                  <TableColumn fx:id="demandColumn" prefWidth="35" text="Demand" />
-                  <TableColumn fx:id="buttonColumn" prefWidth="35" text="To stock up" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-               <BorderPane.margin>
-                  <Insets right="30.0" />
-               </BorderPane.margin>
-            </TableView>
+            <AnchorPane minWidth="500.0" prefHeight="400.0" prefWidth="332.0" styleClass="pane">
+               <children>
+                  <fx:include fx:id="productsTable" source="ProductsTable.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
          </center>
       </BorderPane>
    </children>

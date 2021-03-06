@@ -50,7 +50,7 @@
     -fx-background-color: -secondary-color;
     -fx-background-radius: 15;
     -fx-focus-color : transparent;
-    -fx-text-fill:     -secondary-font-color;
+    -fx-text-fill: -secondary-font-color;
 }
 .text-field:hover {
     -fx-background-color: -secondary-color-hover;

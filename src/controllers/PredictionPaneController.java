@@ -1,137 +1,56 @@
 package controllers;
 
 import components.DataFileWriter;
-import components.NonNegativeIntegerEditingCell;
+import components.NonNegativeIntegerTextField;
 import components.Preference;
-import components.SwitchButton;
 import entity.Product;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
+
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.layout.HBox;
+
 import jfxtras.scene.control.LocalDatePicker;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-public class PredictionPaneController implements Initializable {
+public class PredictionPaneController {
 
-    @FXML
-    public LocalDatePicker datePicker;
+    @FXML private LocalDatePicker datePicker;
+    @FXML private TextField searchBox;
+    @FXML private Label amountLabel;
+    @FXML private HBox deliveryBox;
+    @FXML public ProductsTableController productsTableController;
 
-    @FXML
-    public TableView<Product> productTable;
+    private NonNegativeIntegerTextField deliveryTextField;
 
-    @FXML
-    public TableColumn<Product, Integer> idColumn;
-
-    @FXML
-    public TableColumn<Product, String> nameColumn;
-
-    @FXML
-    public TableColumn<Product, Integer> availabilityColumn;
-
-    @FXML
-    public TableColumn<Product, Integer> demandColumn;
-
-    @FXML
-    public TableColumn<Product, Void> buttonColumn;
-
-    @FXML
-    public TextField searchBox, deliveryTextField;;
-
-    @FXML
-    public Button predictButton, saveToFileButton;
-
-    @FXML Label amountLabel;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        customizeDatePicker();
-        initializeProductTableColumns();
-        makeDemandColumnEditable();
-        addButtonToTable();
-        initializeSearchBox();
-        initializeAmountLabel();
-        customizeDeliveryTextField();
+    public void initialize() {
+        addDeliveryTextFieldToPane();
+        setEnglishLanguageInDatePicker();
+        handleSearchBox();
+        handleAmountLabel();
         updateAmountLabel();
-
-        productTable.setItems(filteredProducts);
+        updateDeliveryTextField();
     }
 
-    private void makeDemandColumnEditable() {
-        productTable.setEditable(true);
-        demandColumn.setEditable(true);
-        demandColumn.setCellFactory(col -> new NonNegativeIntegerEditingCell());
-        demandColumn.setOnEditCommit(event ->
-                (event.getTableView().getItems().get(event.getTablePosition().getRow())).setDemand(event.getNewValue())
-        );
+    private void addDeliveryTextFieldToPane() {
+        deliveryTextField = new NonNegativeIntegerTextField();
+        deliveryTextField.setPrefSize(27, 20);
+        deliveryTextField.getStyleClass().add("text-field-delivery");
+        deliveryBox.getChildren().add(1, deliveryTextField);
     }
 
-    private void customizeDatePicker(){
+    private void setEnglishLanguageInDatePicker(){
         datePicker.setLocale(Locale.ENGLISH);
     }
 
-    private void initializeProductTableColumns(){
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        availabilityColumn.setCellValueFactory(new PropertyValueFactory<>("Availability"));
-        demandColumn.setCellValueFactory(new PropertyValueFactory<>("Demand"));
-    }
-
-    private void addButtonToTable() {
-
-        Callback<TableColumn<Product, Void>, TableCell<Product, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Product, Void> call(final TableColumn<Product, Void> param) {
-                final TableCell<Product, Void> cell = new TableCell<>() {
-
-                    private SwitchButton btn = new SwitchButton();
-
-                    {
-                        btn.setOnMouseClicked(mouseEvent -> {
-                            btn.setSwitchedOn(!btn.isSwitchedOn());
-                            Product data = getTableView().getItems().get(getIndex());
-                            data.setToStockUp(btn.isSwitchedOn());
-                            updateAmountLabel();
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            Product data = getTableView().getItems().get(getIndex());
-                            btn.setSwitchedOn(data.isToStockUp());
-                            setGraphic(btn);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-
-        buttonColumn.setCellFactory(cellFactory);
-    }
-
-    private void initializeSearchBox(){
+    private void handleSearchBox(){
         searchBox.setPromptText("Search");
         searchBox.textProperty().addListener((observable, oldValue, newValue) ->
-                filteredProducts.setPredicate(createPredicate(newValue))
+                productsTableController.getFilteredProductsTable().setPredicate(createPredicate(newValue))
         );
     }
 
@@ -149,34 +68,16 @@ public class PredictionPaneController implements Initializable {
                 (Integer.valueOf(product.getDemand()).toString().equals(searchText));
     }
 
-    private void initializeAmountLabel(){
-                filteredProducts.addListener((ListChangeListener.Change<? extends Product> product) ->
-                updateAmountLabel()
-        );
+    private void handleAmountLabel(){
+        productsTableController.getFilteredProductsTable().addListener((ListChangeListener.Change<? extends Product> product) -> updateAmountLabel());
     }
 
     private void updateAmountLabel(){
-        amountLabel.setText(String.valueOf(selectProductsToSave().size()));
+        amountLabel.setText(String.valueOf(productsTableController.selectProductsToBeStockedUp().size()));
     }
 
     public void updateDeliveryTextField() {
         deliveryTextField.setText(String.valueOf(Preference.getDeliveryDuration()));
-    }
-
-    private void customizeDeliveryTextField() {
-        updateDeliveryTextField();
-        deliveryTextField.textProperty().addListener(new ChangeListener<>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!isPositiveInteger(newValue)) {
-                    deliveryTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
-
-    private boolean isPositiveInteger(String text){
-        return text.matches("\\d+");
     }
 
     @FXML
@@ -188,79 +89,21 @@ public class PredictionPaneController implements Initializable {
     @FXML
     public void handleSaveToFileButton(ActionEvent event){
         DataFileWriter dataFileWriter = new DataFileWriter();
-        List<Product> productsToSave = selectProductsToSave();
+        List<Product> productsToSave = productsTableController.selectProductsToBeStockedUp();
         dataFileWriter.write(productsToSave);
     }
 
     @FXML
     public void handleCheckAllButton(ActionEvent event){
-        filteredProducts.forEach(product -> product.setToStockUp(true));
+        productsTableController.checkAllProducts();
+        productsTableController.refreshTableView();
         updateAmountLabel();
-        productTable.refresh();
     }
 
     @FXML
     public void handleUncheckAllButton(ActionEvent event){
-        filteredProducts.forEach(product -> product.setToStockUp(false));
+        productsTableController.uncheckAllProducts();
+        productsTableController.refreshTableView();
         updateAmountLabel();
-        productTable.refresh();
     }
-
-    private List<Product> selectProductsToSave(){
-        return filteredProducts
-                .stream()
-                .filter(product -> product.isToStockUp())
-                .collect(Collectors.toList()
-                );
-    }
-
-    private ObservableList<Product> products = FXCollections.observableArrayList(
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),
-            new Product(210, "Torba damska shopper granat", 7, 3, true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true));
-
-    private FilteredList<Product> filteredProducts = new FilteredList<>(FXCollections.observableList(products));
 }

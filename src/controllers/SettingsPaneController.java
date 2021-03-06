@@ -1,32 +1,32 @@
 package controllers;
 
+import components.NonNegativeIntegerTextField;
 import components.Preference;
 import components.SwitchButton;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public class SettingsPaneController {
 
-    @FXML public Label lightModeLabel;
-    @FXML public Label darkModeLabel;
-    @FXML private TextField deliveryTextField;
+    @FXML private Label lightModeLabel;
+    @FXML private Label darkModeLabel;
+    @FXML private HBox deliveryBox;
     @FXML private HBox lightModeBox, darkModeBox;
 
+    private NonNegativeIntegerTextField deliveryTextField;
     private SwitchButton lightModeBtn, darkModeBtn;
     private MainSceneController mainSceneController;
 
     public void initialize() {
         addModeButtonsToPane();
         setModeButtonStates();
+        addDeliveryTextFieldToPane();
         setModeLabels();
         addActionToModeButtons();
-        forceDeliveryTextFieldToBeNumericOnly();
         setDeliveryText();
     }
 
@@ -46,6 +46,12 @@ public class SettingsPaneController {
         darkModeBtn.setSwitchedOn(Preference.isDarkMode());
     }
 
+    private void addDeliveryTextFieldToPane() {
+        deliveryTextField = new NonNegativeIntegerTextField();
+        deliveryTextField.setPrefSize(35, 26);
+        deliveryBox.getChildren().add(1, deliveryTextField);
+    }
+
     private void setModeLabels(){
         lightModeLabel.setText(lightModeBtn.isSwitchedOn() ? "On" : "Off");
         darkModeLabel.setText(darkModeBtn.isSwitchedOn() ? "On" : "Off");
@@ -60,21 +66,6 @@ public class SettingsPaneController {
         lightModeBtn.setSwitchedOn(!lightModeBtn.isSwitchedOn());
         darkModeBtn.setSwitchedOn(!darkModeBtn.isSwitchedOn());
         setModeLabels();
-    }
-
-    private void forceDeliveryTextFieldToBeNumericOnly() {
-        deliveryTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!isPositiveInteger(newValue)) {
-                    deliveryTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-    }
-
-    private boolean isPositiveInteger(String text){
-        return text.matches("\\d+");
     }
 
     private void setDeliveryText() {
