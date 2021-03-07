@@ -14,20 +14,19 @@ public class MainSceneController {
     @FXML private AnchorPane logOut;
     @FXML private RadioButton predictionPaneBtn;
     @FXML public SettingsPaneController settingsPaneController;
-    @FXML public PredictionPaneController predictionPaneController;
 
     public void initialize() {
+        setHomePane();
+        setMode(Preference.isDarkMode());
         settingsPaneController.injectMainController(this);
-        setDefaultSelectedPane();
-        setMode();
     }
 
-    private void setDefaultSelectedPane(){
+    private void setHomePane(){
         predictionPaneBtn.fire();
     }
 
-    public void setMode(){
-        if(Preference.isDarkMode())
+    public void setMode(boolean darkMode){
+        if(darkMode)
             setDarkMode();
         else
             setLightMode();

@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle;
 public class SwitchButton extends StackPane {
 
     private final Circle slider = new Circle();
-    private final BooleanProperty switchedOn = new SimpleBooleanProperty(true);
+    private final BooleanProperty switchedOn = new SimpleBooleanProperty();
     private static final PseudoClass SWITCHED_ON = PseudoClass.getPseudoClass("switched-on");
     private static final PseudoClass SWITCHED_OFF = PseudoClass.getPseudoClass("switched-off");
 
@@ -61,7 +61,7 @@ public class SwitchButton extends StackPane {
         return switchedOn.get();
     }
 
-    public void setSwitchedOn(boolean switchedOn) {
-        this.switchedOn.set(switchedOn);
-    }
+    public void setSwitchedOn(boolean switchedOn) { this.switchedOn.set(switchedOn); }
+
+    public BooleanProperty getSwitchedOnProperty(){ return switchedOn; }
 }

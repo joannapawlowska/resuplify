@@ -17,7 +17,7 @@
                   <children>
                       <AnchorPane fx:id="prediction" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                           <children>
-                              <fx:include fx:id="predictionPane" source="PredictionPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <fx:include source="PredictionPane.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                           </children>
                       </AnchorPane>
                       <AnchorPane fx:id="settings" prefHeight="200.0" prefWidth="200.0" styleClass="pane">

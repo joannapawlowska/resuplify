@@ -5,87 +5,81 @@ import components.Preference;
 import components.SwitchButton;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.fxml.FXML;
 
 public class SettingsPaneController {
 
-    @FXML private Label lightModeLabel;
     @FXML private Label darkModeLabel;
     @FXML private HBox deliveryBox;
-    @FXML private HBox lightModeBox, darkModeBox;
+    @FXML private HBox darkModeBox;
 
-    private NonNegativeIntegerTextField deliveryTextField;
-    private SwitchButton lightModeBtn, darkModeBtn;
     private MainSceneController mainSceneController;
+    private NonNegativeIntegerTextField deliveryTextField;
+    private SwitchButton darkModeBtn;
 
     public void initialize() {
-        addModeButtonsToPane();
-        setModeButtonStates();
-        addDeliveryTextFieldToPane();
-        setModeLabels();
-        addActionToModeButtons();
-        setDeliveryText();
+        addChildrenToPane();
+        addActionToModeButton();
+        addListenerToModeButtonState();
+
+        setPreferredModeButtonState();
+        setPreferredDeliveryTextField();
     }
 
-    public void injectMainController(MainSceneController msc) {
-        mainSceneController = msc;
+    public void injectMainController(MainSceneController controller) {
+        mainSceneController = controller;
     }
 
-    private void addModeButtonsToPane() {
-        lightModeBtn = new SwitchButton();
+    private void addChildrenToPane() {
+        addModeButton();
+        addDeliveryTextField();
+    }
+
+    private void addModeButton() {
         darkModeBtn = new SwitchButton();
-        lightModeBox.getChildren().add(1, lightModeBtn);
         darkModeBox.getChildren().add(1, darkModeBtn);
     }
 
-    private void setModeButtonStates(){
-        lightModeBtn.setSwitchedOn(Preference.isLightMode());
-        darkModeBtn.setSwitchedOn(Preference.isDarkMode());
-    }
-
-    private void addDeliveryTextFieldToPane() {
+    private void addDeliveryTextField() {
         deliveryTextField = new NonNegativeIntegerTextField();
         deliveryTextField.setPrefSize(35, 26);
         deliveryBox.getChildren().add(1, deliveryTextField);
     }
 
-    private void setModeLabels(){
-        lightModeLabel.setText(lightModeBtn.isSwitchedOn() ? "On" : "Off");
-        darkModeLabel.setText(darkModeBtn.isSwitchedOn() ? "On" : "Off");
+    private void addActionToModeButton(){
+        darkModeBtn.setOnMouseClicked(mouseEvent -> reverseModeButtonState());
     }
 
-    private void addActionToModeButtons(){
-        lightModeBtn.setOnMouseClicked(mouseEvent -> reverseModeButtonStates());
-        darkModeBtn.setOnMouseClicked(mouseEvent -> reverseModeButtonStates());
-    }
-
-    private void reverseModeButtonStates(){
-        lightModeBtn.setSwitchedOn(!lightModeBtn.isSwitchedOn());
+    private void reverseModeButtonState(){
         darkModeBtn.setSwitchedOn(!darkModeBtn.isSwitchedOn());
-        setModeLabels();
     }
 
-    private void setDeliveryText() {
+    public void addListenerToModeButtonState(){
+        darkModeBtn.getSwitchedOnProperty().addListener((change) -> {
+            darkModeLabel.setText(darkModeBtn.isSwitchedOn() ? "On" : "Off");
+            mainSceneController.setMode(darkModeBtn.isSwitchedOn());
+        } );
+    }
+
+    private void setPreferredModeButtonState(){
+        darkModeBtn.setSwitchedOn(Preference.isDarkMode());
+    }
+
+    private void setPreferredDeliveryTextField() {
         deliveryTextField.setText(String.valueOf(Preference.getDeliveryDuration()));
     }
 
     @FXML
     private void handleCancelBtn(ActionEvent event){
-        lightModeBtn.setSwitchedOn(Preference.isLightMode());
-        darkModeBtn.setSwitchedOn(Preference.isDarkMode());
-        setModeLabels();
-        setDeliveryText();
+        setPreferredModeButtonState();
+        setPreferredDeliveryTextField();
     }
 
     @FXML
     private void handleSaveBtn(ActionEvent event){
         Preference.updateDarkMode(darkModeBtn.isSwitchedOn());
-        Preference.updateLightMode(lightModeBtn.isSwitchedOn());
         Preference.updateDeliveryDuration(Integer.parseInt(deliveryTextField.getText()));
-        mainSceneController.setMode();
-        mainSceneController.predictionPaneController.updateDeliveryTextField();
     }
 }
