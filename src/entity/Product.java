@@ -4,8 +4,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.time.LocalDate;
-
 public class Product {
 
     SimpleIntegerProperty id;
@@ -13,7 +11,6 @@ public class Product {
     SimpleIntegerProperty availability;
     SimpleIntegerProperty demand;
     SimpleBooleanProperty toStockUp;
-    LocalDate outOfStockDate;
 
     public Product(int id, String name, int availability, int demand, boolean toStockUp){
         this.id = new SimpleIntegerProperty(id);
@@ -39,6 +36,8 @@ public class Product {
         return demand.get();
     }
 
+    public void setDemand(int demand) { this.demand.set(demand); }
+
     public boolean isToStockUp() {
         return toStockUp.get();
     }
@@ -47,5 +46,5 @@ public class Product {
         this.toStockUp.set(toStockUp);
     }
 
-    public void setDemand(int demand) { this.demand.set(demand); }
+    public SimpleBooleanProperty getToStockUpBooleanProperty() { return toStockUp; }
 }

@@ -16,9 +16,9 @@ import javafx.util.Callback;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductsTableController {
+public class TableViewController {
 
-    @FXML private TableView<Product> productsTable;
+    @FXML private TableView<Product> tableView;
     @FXML private TableColumn<Product, Integer> idColumn;
     @FXML private TableColumn<Product, String> nameColumn;
     @FXML private TableColumn<Product, Integer> availabilityColumn;
@@ -29,7 +29,7 @@ public class ProductsTableController {
         initializeProductTableColumns();
         makeDemandColumnEditable();
         addButtonsToTable();
-        productsTable.setItems(filteredProducts);
+        tableView.setItems(filteredProducts);
     }
 
     private void initializeProductTableColumns(){
@@ -40,7 +40,7 @@ public class ProductsTableController {
     }
 
     private void makeDemandColumnEditable() {
-        productsTable.setEditable(true);
+        tableView.setEditable(true);
         demandColumn.setEditable(true);
         allowColumnToBeEditedOnlyWithNonNegativeIntegers();
         saveChangesWhenColumnCellEdited();
@@ -68,7 +68,6 @@ public class ProductsTableController {
                             btn.setSwitchedOn(!btn.isSwitchedOn());
                             Product data = getTableView().getItems().get(getIndex());
                             data.setToStockUp(btn.isSwitchedOn());
-                            //updateAmountLabel();
                         });
                     }
 
@@ -90,6 +89,10 @@ public class ProductsTableController {
         buttonColumn.setCellFactory(cellFactory);
     }
 
+    public int getAmountOfProductsToBeStockedUp() {
+        return selectProductsToBeStockedUp().size();
+    }
+
     public List<Product> selectProductsToBeStockedUp(){
         return filteredProducts
                 .stream()
@@ -106,12 +109,13 @@ public class ProductsTableController {
     }
 
     public void refreshTableView(){
-        productsTable.refresh();
+        tableView.refresh();
     }
 
-    public FilteredList<Product> getFilteredProductsTable(){
+    public FilteredList<Product> getFilteredProducts(){
         return filteredProducts;
     }
+
 
     private ObservableList<Product> products = FXCollections.observableArrayList(
             new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),

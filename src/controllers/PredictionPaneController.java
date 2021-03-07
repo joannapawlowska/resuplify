@@ -5,6 +5,8 @@ import components.NonNegativeIntegerTextField;
 import components.Preference;
 import entity.Product;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import jfxtras.scene.control.LocalDatePicker;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class PredictionPaneController {
@@ -23,7 +26,7 @@ public class PredictionPaneController {
     @FXML private TextField searchBox;
     @FXML private Label amountLabel;
     @FXML private HBox deliveryBox;
-    @FXML public ProductsTableController productsTableController;
+    @FXML public TableViewController tableViewController;
 
     private NonNegativeIntegerTextField deliveryTextField;
 
@@ -50,7 +53,7 @@ public class PredictionPaneController {
     private void handleSearchBox(){
         searchBox.setPromptText("Search");
         searchBox.textProperty().addListener((observable, oldValue, newValue) ->
-                productsTableController.getFilteredProductsTable().setPredicate(createPredicate(newValue))
+                tableViewController.getFilteredProducts().setPredicate(createPredicate(newValue))
         );
     }
 
@@ -69,11 +72,30 @@ public class PredictionPaneController {
     }
 
     private void handleAmountLabel(){
-        productsTableController.getFilteredProductsTable().addListener((ListChangeListener.Change<? extends Product> product) -> updateAmountLabel());
+        updateWhenProductTableViewWasModified();
+        updateWhenProductsToStockUpPropertyWasModified();
     }
 
-    private void updateAmountLabel(){
-        amountLabel.setText(String.valueOf(productsTableController.selectProductsToBeStockedUp().size()));
+    private void updateWhenProductTableViewWasModified(){
+        tableViewController.getFilteredProducts().addListener((ListChangeListener.Change<? extends Product> product) -> updateAmountLabel());
+    }
+
+    private void updateWhenProductsToStockUpPropertyWasModified(){
+        tableViewController.getFilteredProducts().forEach(new Consumer<Product>() {
+            @Override
+            public void accept(Product product) {
+                product.getToStockUpBooleanProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                        updateAmountLabel();
+                    }
+                });
+            }
+        });
+    }
+
+    public void updateAmountLabel(){
+        amountLabel.setText(String.valueOf(tableViewController.getAmountOfProductsToBeStockedUp()));
     }
 
     public void updateDeliveryTextField() {
@@ -89,21 +111,19 @@ public class PredictionPaneController {
     @FXML
     public void handleSaveToFileButton(ActionEvent event){
         DataFileWriter dataFileWriter = new DataFileWriter();
-        List<Product> productsToSave = productsTableController.selectProductsToBeStockedUp();
+        List<Product> productsToSave = tableViewController.selectProductsToBeStockedUp();
         dataFileWriter.write(productsToSave);
     }
 
     @FXML
     public void handleCheckAllButton(ActionEvent event){
-        productsTableController.checkAllProducts();
-        productsTableController.refreshTableView();
-        updateAmountLabel();
+        tableViewController.checkAllProducts();
+        tableViewController.refreshTableView();
     }
 
     @FXML
     public void handleUncheckAllButton(ActionEvent event){
-        productsTableController.uncheckAllProducts();
-        productsTableController.refreshTableView();
-        updateAmountLabel();
+        tableViewController.uncheckAllProducts();
+        tableViewController.refreshTableView();
     }
 }

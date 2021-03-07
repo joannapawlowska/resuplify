@@ -119,7 +119,7 @@
          <center>
             <AnchorPane minWidth="500.0" prefHeight="400.0" prefWidth="332.0" styleClass="pane">
                <children>
-                  <fx:include fx:id="productsTable" source="ProductsTable.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <fx:include fx:id="tableView" source="TableView.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </center>
