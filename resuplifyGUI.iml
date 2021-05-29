@@ -98,5 +98,11 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javax.json-api-1.1.4" level="project" />
+    <orderEntry type="library" name="jackson-core-2.11.3" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.11.3" level="project" />
+    <orderEntry type="library" name="javax.ws.rs-api-2.1.1" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.12.3" level="project" />
+    <orderEntry type="library" name="jersey-common-3.0.2" level="project" />
   </component>
 </module>

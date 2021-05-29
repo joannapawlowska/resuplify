@@ -34,19 +34,19 @@
     -fx-background-color: -primary-color-hover;
 }
 
-.btn.check-all{
+.btn.select-all{
     -fx-background-color: -color4;
 }
 
-.btn.uncheck-all{
+.btn.unselect-all{
     -fx-background-color: -color2;
 }
 
-.btn.check-all:hover{
+.btn.select-all:hover{
     -fx-background-color: derive( -color4, 20%);
 }
 
-.btn.uncheck-all:hover{
+.btn.unselect-all:hover{
     -fx-background-color: derive( -color2, 20%);
 }
 

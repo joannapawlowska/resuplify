@@ -1,7 +1,7 @@
 package controllers;
 
-import components.NonNegativeIntegerEditingCell;
-import components.SwitchButton;
+import components.view.NonNegativeIntegerEditingCell;
+import components.view.SwitchButton;
 import entity.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +24,9 @@ public class TableViewController {
     @FXML private TableColumn<Product, Integer> availabilityColumn;
     @FXML private TableColumn<Product, Integer> demandColumn;
     @FXML private TableColumn<Product, Void> buttonColumn;
+
+    private ObservableList<Product> products = FXCollections.observableArrayList();
+    private FilteredList<Product> filteredProducts = new FilteredList<>(FXCollections.observableList(products));
 
     public void initialize(){
         initializeProductTableColumns();
@@ -51,7 +54,11 @@ public class TableViewController {
     }
 
     private void saveChangesWhenColumnCellEdited(){
-        demandColumn.setOnEditCommit(event -> (event.getTableView().getItems().get(event.getTablePosition().getRow())).setDemand(event.getNewValue()));
+        demandColumn.setOnEditCommit(event -> (event
+                        .getTableView()
+                        .getItems()
+                        .get(event.getTablePosition().getRow())
+                ).setDemand(event.getNewValue()));
     }
 
     private void addButtonsToTable() {
@@ -61,7 +68,7 @@ public class TableViewController {
             public TableCell<Product, Void> call(final TableColumn<Product, Void> param) {
                 return new TableCell<>() {
 
-                    private SwitchButton btn = new SwitchButton();
+                    private final SwitchButton btn = new SwitchButton();
 
                     {
                         btn.setOnMouseClicked(mouseEvent -> {
@@ -94,9 +101,9 @@ public class TableViewController {
     }
 
     public List<Product> selectProductsToBeStockedUp(){
-        return filteredProducts
+        return products
                 .stream()
-                .filter(product -> product.isToStockUp())
+                .filter(Product::isToStockUp)
                 .collect(Collectors.toList());
     }
 
@@ -116,54 +123,15 @@ public class TableViewController {
         return filteredProducts;
     }
 
+    public ObservableList<Product> getProducts(){
+        return products;
+    }
 
-    private ObservableList<Product> products = FXCollections.observableArrayList(
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4, true),
-            new Product(210, "Torba damska shopper granat", 7, 3, true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true),
-            new Product(97, "Good Me torebka 2w3 czarna Tom&Tom", 75, 2,true),
-            new Product(21, "Torba duza z haftem 45cm", 8, 1,true),
-            new Product(48, "Big shopper bag Johnson", 73, 5,true),
-            new Product(211, "Torba damska shopper granat", 7, 20,true),
-            new Product(47, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 4,true),
-            new Product(210, "Torba damska shopper granat", 7, 3,true),
-            new Product(32, "Helwa Me torebka portfel 2w1 czarna Tom&Eva", 7, 1,true),
-            new Product(162, "Torba plażowa flamingi beżowa", 8, 2,true),
-            new Product(41, "Hash hash bag bag bag Tom&Eva", 7, 20,true),
-            new Product(267, "Torba damska shopper zielen", 100, 200,true));
+    public void setProducts(List<Product> products){
 
-    private FilteredList<Product> filteredProducts = new FilteredList<>(FXCollections.observableList(products));
+        this.products.addAll(products);
+        this.filteredProducts = new FilteredList<>(FXCollections.observableList(products));
+        tableView.setItems(filteredProducts);
+    }
+
 }

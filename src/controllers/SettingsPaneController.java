@@ -1,10 +1,9 @@
 package controllers;
 
-import components.NonNegativeIntegerTextField;
-import components.Preference;
-import components.SwitchButton;
+import components.view.NonNegativeIntegerTextField;
+import components.logic.Preference;
+import components.view.SwitchButton;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.fxml.FXML;
@@ -22,10 +21,12 @@ public class SettingsPaneController {
     public void initialize() {
         addChildrenToPane();
         addActionToModeButton();
-        addListenerToModeButtonState();
 
         setPreferredModeButtonState();
         setPreferredDeliveryTextField();
+        setModeLabel();
+
+        addListenerToModeButtonState();
     }
 
     public void injectMainController(MainSceneController controller) {
@@ -49,18 +50,11 @@ public class SettingsPaneController {
     }
 
     private void addActionToModeButton(){
-        darkModeBtn.setOnMouseClicked(mouseEvent -> reverseModeButtonState());
+        darkModeBtn.setOnMouseClicked(mouseEvent -> reverseModeButtonState() );
     }
 
     private void reverseModeButtonState(){
         darkModeBtn.setSwitchedOn(!darkModeBtn.isSwitchedOn());
-    }
-
-    public void addListenerToModeButtonState(){
-        darkModeBtn.getSwitchedOnProperty().addListener((change) -> {
-            darkModeLabel.setText(darkModeBtn.isSwitchedOn() ? "On" : "Off");
-            mainSceneController.setMode(darkModeBtn.isSwitchedOn());
-        } );
     }
 
     private void setPreferredModeButtonState(){
@@ -71,15 +65,27 @@ public class SettingsPaneController {
         deliveryTextField.setText(String.valueOf(Preference.getDeliveryDuration()));
     }
 
+    private void setModeLabel() {
+        darkModeLabel.setText(darkModeBtn.isSwitchedOn() ? "On" : "Off");
+    }
+
+    public void addListenerToModeButtonState(){
+        darkModeBtn.getSwitchedOnProperty().addListener((change) -> {
+            setModeLabel();
+            mainSceneController.setMode(darkModeBtn.isSwitchedOn());
+        } );
+    }
+
     @FXML
-    private void handleCancelBtn(ActionEvent event){
+    private void handleCancelBtn(){
         setPreferredModeButtonState();
         setPreferredDeliveryTextField();
     }
 
     @FXML
-    private void handleSaveBtn(ActionEvent event){
+    private void handleSaveBtn(){
         Preference.updateDarkMode(darkModeBtn.isSwitchedOn());
         Preference.updateDeliveryDuration(Integer.parseInt(deliveryTextField.getText()));
+        mainSceneController.predictionPaneController.updateDeliveryTextField();
     }
 }

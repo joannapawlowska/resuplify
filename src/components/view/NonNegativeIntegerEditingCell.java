@@ -1,4 +1,4 @@
-package components;
+package components.view;
 
 import entity.Product;
 import javafx.beans.binding.Bindings;
@@ -79,7 +79,7 @@ public class NonNegativeIntegerEditingCell extends TableCell<Product, Integer> {
 
     private void commitEditingOnAction() {
         textField.setOnAction(event -> {
-                commitEdit(converter.fromString(textField.getText()));
+            commitEdit(converter.fromString(textField.getText()));
         });
     }
 

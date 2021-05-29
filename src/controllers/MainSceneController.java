@@ -1,7 +1,6 @@
 package controllers;
 
-import components.Preference;
-import javafx.event.ActionEvent;
+import components.logic.Preference;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +12,8 @@ public class MainSceneController {
     @FXML private AnchorPane settings;
     @FXML private AnchorPane logOut;
     @FXML private RadioButton predictionPaneBtn;
-    @FXML public SettingsPaneController settingsPaneController;
+    @FXML SettingsPaneController settingsPaneController;
+    @FXML PredictionPaneController predictionPaneController;
 
     public void initialize() {
         setHomePane();
@@ -32,28 +32,28 @@ public class MainSceneController {
             setLightMode();
     }
 
-    public void setDarkMode(){
+    private void setDarkMode(){
         mainScene.getStylesheets().remove("css/light-mode.css");
         mainScene.getStylesheets().add("css/dark-mode.css");
     }
 
-    public void setLightMode(){
+    private void setLightMode(){
         mainScene.getStylesheets().remove("css/dark-mode.css");
         mainScene.getStylesheets().add("css/light-mode.css");
     }
 
     @FXML
-    private void handlePredictionPaneBtn(ActionEvent actionEvent) {
+    private void handlePredictionPaneBtn() {
         prediction.toFront();
     }
 
     @FXML
-    private void handleSettingsPaneBtn(ActionEvent actionEvent) {
+    private void handleSettingsPaneBtn() {
         settings.toFront();
     }
 
     @FXML
-    private void handleLogOutPaneBtn(ActionEvent actionEvent) {
+    private void handleLogOutPaneBtn() {
         logOut.toFront();
     }
 }

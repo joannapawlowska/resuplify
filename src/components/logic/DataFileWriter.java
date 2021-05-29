@@ -1,4 +1,4 @@
-package components;
+package components.logic;
 
 import entity.Product;
 

@@ -1,4 +1,4 @@
-package components;
+package components.view;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -30,7 +30,7 @@ public class SwitchButton extends StackPane {
     }
 
     private void setStylesheetAndStyleClasses() {
-        getStylesheets().add("css/switchButton.css");
+        getStylesheets().add("css/switch-button.css");
         getStyleClass().add("switch-btn");
         slider.getStyleClass().add("switch-slider");
     }

@@ -4,8 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -46,18 +44,18 @@
                         </Button>
                      </children>
                   </StackPane>
-                  <HBox minHeight="32.0" minWidth="140.0" prefHeight="32.0" prefWidth="140.0" spacing="10.0" AnchorPane.rightAnchor="325.0">
+                  <HBox minHeight="32.0" minWidth="150.0" prefHeight="32.0" prefWidth="140.0" spacing="10.0" AnchorPane.rightAnchor="325.0">
                      <children>
-                        <Button onAction="#handleUncheckAllButton" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Untick all">
+                        <Button onAction="#handleUncheckAllButton" minHeight="30.0" minWidth="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Unselect all">
                            <styleClass>
                               <String fx:value="btn" />
-                              <String fx:value="uncheck-all" />
+                              <String fx:value="unselect-all" />
                            </styleClass>
                         </Button>
-                        <Button onAction="#handleCheckAllButton" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Tick all">
+                        <Button onAction="#handleCheckAllButton" minHeight="30.0" minWidth="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Select all">
                         <styleClass>
                            <String fx:value="btn" />
-                           <String fx:value="check-all" />
+                           <String fx:value="select-all" />
                         </styleClass>
                      </Button>
                      </children>
@@ -85,12 +83,12 @@
                   </HBox>
                   <StackPane prefHeight="288.0" prefWidth="276.0" styleClass="datePicker-pane">
                      <children>
-                        <LocalDatePicker fx:id="datePicker" prefHeight="163.0" prefWidth="235.0" stylesheets="@../css/datePicker.css" />
+                        <LocalDatePicker fx:id="datePicker" prefHeight="163.0" prefWidth="235.0" stylesheets="@../css/date-picker.css" />
                      </children>
                   </StackPane>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <Button minHeight="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="290.0" text="Predict">
+                        <Button fx:id="predictButton" minHeight="35.0" mnemonicParsing="false" onAction="#handlePredictButton" prefHeight="35.0" prefWidth="290.0" text="Predict">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
@@ -117,7 +115,7 @@
             </VBox>
          </right>
          <center>
-            <AnchorPane minWidth="500.0" prefHeight="400.0" prefWidth="332.0" styleClass="pane">
+            <AnchorPane minWidth="530.0" prefHeight="400.0" prefWidth="332.0" styleClass="pane">
                <children>
                   <fx:include fx:id="tableView" source="TableView.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
