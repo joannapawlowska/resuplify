@@ -1,6 +1,5 @@
 .root {
     -fx-background-color: -root-color;
-    -fx-font-family: "Charcoal";
 }
 
 .pane {
@@ -16,6 +15,7 @@
     -fx-text-fill: -primary-font-color;
     -fx-font-weight: bold;
     -fx-font-size: 11;
+    -fx-background-insets: 0 0 0 5px;
 }
 
 .menu-btn:hover {
