@@ -4,56 +4,53 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.AuthRequest;
 
-import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
-import java.util.Map;
+import java.time.LocalDate;
 
 public class HttpRequestBuilder {
 
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "https://48032270-3579-4a4f-843d-05b139e8eaf9.mock.pstmn.io";
     public static final String AUTH_SIGNUP_ENDPOINT = "/auth/signup";
     public static final String AUTH_LOGIN_ENDPOINT = "/auth/login";
     public static final String RESUPPLY_ENDPOINT = "/resupply";
 
-    public static HttpRequest buildResupplyGET(Map<String, String> nameValuePairs) {
+    public static HttpRequest buildResupplyGET(LocalDate date) throws URISyntaxException {
 
         return HttpRequest.newBuilder()
-                .uri(parseURI(RESUPPLY_ENDPOINT, nameValuePairs).build())
+                .uri(parseURI(RESUPPLY_ENDPOINT, date))
                 .header("Accept", "application/json")
                 .GET()
                 .build();
     }
 
-    private static UriBuilder parseURI(String endpoint, Map<String, String> paramValuePairs){
+    private static URI parseURI(String endpoint, LocalDate date) throws URISyntaxException {
 
-        UriBuilder builder = parseURI(endpoint);
-
-        for(String key : paramValuePairs.keySet()){
-            builder.queryParam(key, paramValuePairs.get(key));
-        }
-
-        return builder;
+        URI uri = parseURI(endpoint);
+        return new URI(String.format("%s?%s=%s", uri.toString(), "date", date));
     }
 
-    private static UriBuilder parseURI(String endpoint){
-        return UriBuilder.fromUri(String.format("%s%s", BASE_URL, endpoint));
+    private static URI parseURI(String endpoint) throws URISyntaxException {
+        return new URI(String.format("%s%s", BASE_URL, endpoint));
     }
 
-    public static HttpRequest buildSignupPOST(AuthRequest authRequest) throws JsonProcessingException {
+    public static HttpRequest buildSignupPOST(AuthRequest authRequest) throws JsonProcessingException, URISyntaxException {
         return buildPOST(authRequest, AUTH_SIGNUP_ENDPOINT);
     }
 
-    public static HttpRequest buildLoginPOST(AuthRequest authRequest) throws JsonProcessingException {
+    public static HttpRequest buildLoginPOST(AuthRequest authRequest) throws JsonProcessingException, URISyntaxException {
         return buildPOST(authRequest, AUTH_LOGIN_ENDPOINT);
     }
 
-    private static HttpRequest buildPOST(AuthRequest authRequest, String endpoint) throws JsonProcessingException {
+    private static HttpRequest buildPOST(AuthRequest authRequest, String endpoint) throws JsonProcessingException, URISyntaxException {
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.writerWithDefaultPrettyPrinter();
         String body = mapper.writeValueAsString(authRequest);
 
         return HttpRequest.newBuilder()
-                .uri(parseURI(endpoint).build())
+                .uri(parseURI(endpoint))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json;charset=UTF-8")
                 .POST(HttpRequest.BodyPublishers.ofString(body))

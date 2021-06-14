@@ -14,11 +14,13 @@ public class MainSceneController {
     @FXML private RadioButton predictionPaneBtn;
     @FXML SettingsPaneController settingsPaneController;
     @FXML PredictionPaneController predictionPaneController;
+    @FXML LogOutPaneController logOutPaneController;
 
     public void initialize() {
         setHomePane();
         setMode(Preference.isDarkMode());
         settingsPaneController.injectMainController(this);
+        predictionPaneController.injectLogOutPaneController(logOutPaneController);
     }
 
     private void setHomePane(){

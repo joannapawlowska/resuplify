@@ -12,7 +12,6 @@ import entity.AuthResponse;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -22,6 +21,7 @@ public class LoginTask extends Task<AuthResponse> {
 
     private LoginSceneController loginSceneController;
     private ObjectMapper mapper;
+    private AuthRequest authRequest;
 
     public LoginTask(LoginSceneController loginSceneController) {
         this.loginSceneController = loginSceneController;
@@ -30,6 +30,7 @@ public class LoginTask extends Task<AuthResponse> {
 
     public void authenticate(AuthRequest request) {
 
+        this.authRequest = request;
         setDisableButtons(true);
         onSucceeded();
         onFailed();
@@ -61,7 +62,7 @@ public class LoginTask extends Task<AuthResponse> {
 
             if (exc instanceof APICallException) {
                 message = exc.getMessage();
-            } else if (exc instanceof URISyntaxException) {
+            } else if (exc instanceof JsonProcessingException) {
                 message = exc.getMessage();
             } else {
                 message = "Unexpected error";
@@ -80,25 +81,32 @@ public class LoginTask extends Task<AuthResponse> {
     @Override
     protected AuthResponse call() throws IOException, InterruptedException, APICallException, URISyntaxException {
 
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(""))
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json;charset=UTF-8")
-                .uri(new URI("https://48032270-3579.mock.pstmn.io/auth/login")).build();
+        HttpRequest httpRequest = parseRequest();
 
         HttpResponse<String> response = HttpClient.newHttpClient()
                 .send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() != 200) {
-
-            ApiError error = mapper.readValue(response.body(), ApiError.class);
-            throw new APICallException(error.getMessage());
+        if (isAuthenticationFailed(response)) {
+            onErrorThrow(response);
         }
 
-        return mapper.readValue(response.body(), AuthResponse.class);
+        return deserializeAuthResponse(response.body());
     }
 
-    private URI parseUri(AuthRequest authRequest) throws JsonProcessingException {
-        return HttpRequestBuilder.buildSignupPOST(authRequest).uri();
+    private HttpRequest parseRequest() throws JsonProcessingException, URISyntaxException {
+        return HttpRequestBuilder.buildLoginPOST(authRequest);
+    }
+
+    private boolean isAuthenticationFailed(HttpResponse<String> response){
+        return response.statusCode() != 200;
+    }
+
+    private void onErrorThrow(HttpResponse<String> response) throws JsonProcessingException{
+        ApiError error = mapper.readValue(response.body(), ApiError.class);
+        throw new APICallException(error.getMessage());
+    }
+
+    private AuthResponse deserializeAuthResponse(String responseBody) throws JsonProcessingException {
+        return mapper.readValue(responseBody, AuthResponse.class);
     }
 }
