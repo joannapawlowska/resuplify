@@ -64,6 +64,7 @@
     -fx-focus-color : transparent;
     -fx-text-fill: -secondary-font-color;
     -fx-padding: 0 17 0 17px;
+    -fx-accent: -accent-color;
 }
 .text-field:hover {
     -fx-background-color: -secondary-color-hover;

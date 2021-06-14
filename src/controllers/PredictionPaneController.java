@@ -4,6 +4,7 @@ import components.api.PredictionTask;
 import components.logic.DataFileWriter;
 import components.logic.Preference;
 import components.view.NonNegativeIntegerTextField;
+import components.view.PopupStage;
 import entity.Product;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import jfxtras.scene.control.LocalDatePicker;
 
 import java.time.LocalDate;
@@ -24,6 +27,7 @@ import java.util.function.Predicate;
 
 public class PredictionPaneController {
 
+    @FXML private AnchorPane predictionPane;
     @FXML private LocalDatePicker datePicker;
     @FXML private TextField searchBox;
     @FXML private Label amountLabel;
@@ -31,11 +35,13 @@ public class PredictionPaneController {
     @FXML private Button predictButton;
     @FXML public TableViewController tableViewController;
 
+    private LogOutPaneController logOutPaneController;
+
     private NonNegativeIntegerTextField deliveryTextField;
 
     public void initialize() {
         addDeliveryTextFieldToPane();
-        setEnglishLanguageInDatePicker();
+        setUpDatePicker();
         handleSearchBox();
         handleAmountLabel();
         updateAmountLabel();
@@ -49,8 +55,13 @@ public class PredictionPaneController {
         deliveryBox.getChildren().add(1, deliveryTextField);
     }
 
-    private void setEnglishLanguageInDatePicker(){
+    private void setUpDatePicker(){
         datePicker.setLocale(Locale.ENGLISH);
+        datePicker.setValueValidationCallback(this::isValidDate);
+    }
+
+    private boolean isValidDate(LocalDate localDate){
+        return localDate.isAfter(LocalDate.now()) && localDate.isBefore(LocalDate.now().plusDays(30));
     }
 
     private void handleSearchBox(){
@@ -133,12 +144,44 @@ public class PredictionPaneController {
 
     @FXML
     public void handlePredictButton(){
-        LocalDate nextDeliveryDate = datePicker.getLocalDate().plusDays(Long.parseLong(deliveryTextField.getText()));
-        PredictionTask predictionTask = new PredictionTask(this);
-        predictionTask.update(nextDeliveryDate);
+
+        if(isMissingDeliveryDuration() || isMissingDate()){
+            showPopupMessage();
+        }else{
+            LocalDate nextDeliveryDate = datePicker.getLocalDate().plusDays(Long.parseLong(deliveryTextField.getText()));
+            PredictionTask predictionTask = new PredictionTask(this, logOutPaneController);
+            predictionTask.update(nextDeliveryDate);
+        }
+    }
+
+    private void showPopupMessage() {
+
+        if(isMissingDeliveryDuration()){
+            new PopupStage("Please fill expected delivery duration");
+        }
+        else {
+            new PopupStage("Please select next delivery date");
+        }
+    }
+
+    private boolean isMissingDeliveryDuration() {
+        return deliveryTextField.getText() == null || deliveryTextField.getText().trim().equals("");
+    }
+
+    private boolean isMissingDate(){
+        return datePicker.getLocalDate() == null;
     }
 
     public void setDisablePredictButton(boolean disable){
         predictButton.setDisable(disable);
+    }
+
+    public void injectLogOutPaneController(LogOutPaneController logOutPaneController) {
+        this.logOutPaneController = logOutPaneController;
+    }
+
+    public void closeCurrentStage(){
+        Stage currentStage = (Stage) predictionPane.getScene().getWindow();
+        currentStage.close();
     }
 }

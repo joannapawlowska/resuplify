@@ -129,6 +129,7 @@ public class TableViewController {
 
     public void setProducts(List<Product> products){
 
+        this.products.clear();
         this.products.addAll(products);
         this.filteredProducts = new FilteredList<>(FXCollections.observableList(products));
         tableView.setItems(filteredProducts);

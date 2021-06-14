@@ -2,7 +2,7 @@
     -fx-font-size: 11px;
     -fx-background-radius: 20px;
     -fx-background-color: -accent-color;
-    -fx-text-fill: -color1;
+    -fx-text-fill: -primary-font-color;
     -fx-opacity: 1;
 }
 

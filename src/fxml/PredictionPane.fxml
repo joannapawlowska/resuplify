@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import jfxtras.scene.control.LocalDatePicker?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/prediction-pane.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PredictionPaneController">
+<AnchorPane fx:id="predictionPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/prediction-pane.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PredictionPaneController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <top>

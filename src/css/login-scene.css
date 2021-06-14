@@ -22,7 +22,6 @@
 
 .btn.signup {
     -fx-background-color: -primary-color;
-    -fx-text-fill: -color1;
 }
 
 .btn.signup:hover{
@@ -49,7 +48,6 @@
 }
 
 .header {
-    -fx-font-family: "Lato-Regular";
     -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-padding: 17 0 17 30px;
@@ -63,6 +61,8 @@
     -fx-focus-color : transparent;
     -fx-text-fill: -secondary-font-color;
     -fx-padding: 0 17 0 17px;
+    -fx-prompt-text-fill: derive( -secondary-font-color, 80%);
+    -fx-accent: -accent-color;
 }
 .text-field:hover {
     -fx-background-color: -secondary-color-hover;
