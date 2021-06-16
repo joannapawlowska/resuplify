@@ -1,4 +1,4 @@
-package entity;
+package dto;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;

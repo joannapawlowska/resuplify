@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 
 public class NonNegativeIntegerTextField extends TextField {
 
-    public NonNegativeIntegerTextField(){
+    public NonNegativeIntegerTextField() {
         allowToPassOnlyNonNegativeIntegers();
     }
 
@@ -21,7 +21,7 @@ public class NonNegativeIntegerTextField extends TextField {
         });
     }
 
-    private boolean isNonNegativeInteger(String text){
+    private boolean isNonNegativeInteger(String text) {
         return text.matches("\\d+");
     }
 }

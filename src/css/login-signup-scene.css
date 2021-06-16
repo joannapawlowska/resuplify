@@ -14,19 +14,24 @@
 }
 
 .btn {
-    -fx-text-fill: -primary-font-color;
+    -fx-text-fill: -color1;
     -fx-font-size: 11;
     -fx-background-radius: 20;
     -fx-background-insets: 0;
+    -fx-background-color: -accent-color;
+}
+
+.btn:hover{
+    -fx-background-color: -accent-color-hover;
 }
 
 .btn.signup {
-    -fx-background-color: -accent-color;
-    -fx-text-fill: -color1;
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -primary-font-color;
 }
 
 .btn.signup:hover{
-    -fx-background-color: -accent-color-hover;
+    -fx-background-color: -primary-color-hover;
 }
 
 .label{
@@ -50,7 +55,6 @@
 }
 
 .header {
-    -fx-font-family: "Lato-Regular";
     -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-padding: 17 0 17 30px;
@@ -64,6 +68,7 @@
     -fx-focus-color : transparent;
     -fx-text-fill: -secondary-font-color;
     -fx-padding: 0 17 0 17px;
+    -fx-prompt-text-fill: derive( -secondary-font-color, 80%);
     -fx-accent: -accent-color;
 }
 .text-field:hover {

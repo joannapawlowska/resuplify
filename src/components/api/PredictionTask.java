@@ -7,9 +7,9 @@ import components.exceptions.APICallException;
 import components.view.PopupStage;
 import controllers.LogOutPaneController;
 import controllers.PredictionPaneController;
-import entity.ApiError;
-import entity.Product;
-import entity.ProductDto;
+import dto.ApiError;
+import dto.Product;
+import dto.ProductDto;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
@@ -37,15 +37,16 @@ public class PredictionTask extends Task<List<ProductDto>> {
     public void update(LocalDate date) {
 
         this.date = date;
-        setDisablePredictBtn(true);
+        setDisableButtons(true);
         onSucceeded();
         onFailed();
 
         new Thread(this).start();
     }
 
-    private void setDisablePredictBtn(boolean disable) {
+    private void setDisableButtons(boolean disable) {
         predictionPaneController.setDisablePredictButton(disable);
+        predictionPaneController.setDisableSaveToFileButton(disable);
     }
 
     public void onSucceeded() {
@@ -62,10 +63,10 @@ public class PredictionTask extends Task<List<ProductDto>> {
         });
     }
 
-    private void setPredictionPaneView(List<Product> p){
+    private void setPredictionPaneView(List<Product> p) {
         predictionPaneController.tableViewController.setProducts(p);
         predictionPaneController.handleAmountLabel();
-        setDisablePredictBtn(false);
+        setDisableButtons(false);
     }
 
     public void onFailed() {
@@ -73,7 +74,7 @@ public class PredictionTask extends Task<List<ProductDto>> {
         setOnFailed(event -> {
 
             Throwable exc = getException();
-            String message=null;
+            String message;
 
             if (exc instanceof APICallException) {
 
@@ -81,15 +82,15 @@ public class PredictionTask extends Task<List<ProductDto>> {
                     logOutPaneController.logOut();
                     predictionPaneController.closeCurrentStage();
                     message = "Token expired, please log in again";
-                }else{
+                } else {
                     message = exc.getMessage();
                 }
-            }else {
+            } else {
                 message = "Unexpected error, please try again";
             }
 
             new PopupStage(message);
-            setDisablePredictBtn(false);
+            setDisableButtons(false);
         });
     }
 
@@ -108,7 +109,7 @@ public class PredictionTask extends Task<List<ProductDto>> {
         return deserializeProducts(response.body());
     }
 
-    private boolean isAuthenticationFailed(HttpResponse<String> response){
+    private boolean isAuthenticationFailed(HttpResponse<String> response) {
         return response.statusCode() != 200;
     }
 
@@ -122,10 +123,11 @@ public class PredictionTask extends Task<List<ProductDto>> {
     }
 
     private List<ProductDto> deserializeProducts(String responseBody) throws JsonProcessingException {
-        return mapper.readValue(responseBody, new TypeReference<>(){});
+        return mapper.readValue(responseBody, new TypeReference<>() {
+        });
     }
 
-    private boolean isUnauthorized(Throwable exc){
+    private boolean isUnauthorized(Throwable exc) {
         return ((APICallException) exc).getStatusCode() == 401;
     }
 }

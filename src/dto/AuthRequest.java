@@ -1,9 +1,9 @@
-package entity;
+package dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthRequest{
+public class AuthRequest {
 
     private String username;
     private String password;
@@ -19,7 +19,8 @@ public class AuthRequest{
         this.url = url;
     }
 
-    public AuthRequest() {}
+    public AuthRequest() {
+    }
 
     public String getUsername() {
         return username;

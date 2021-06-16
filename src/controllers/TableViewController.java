@@ -2,7 +2,7 @@ package controllers;
 
 import components.view.NonNegativeIntegerEditingCell;
 import components.view.SwitchButton;
-import entity.Product;
+import dto.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

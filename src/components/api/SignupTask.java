@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import components.exceptions.APICallException;
 import components.view.PopupStage;
 import controllers.SignupSceneController;
-import entity.ApiError;
-import entity.AuthRequest;
+import dto.ApiError;
+import dto.AuthRequest;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
@@ -40,7 +40,9 @@ public class SignupTask extends Task<Void> {
         signupSceneController.setDisableButton(disable);
     }
 
-    private void clearSignUpTextFields() { signupSceneController.clearTextFields(); }
+    private void clearSignUpTextFields() {
+        signupSceneController.clearTextFields();
+    }
 
     public void onSucceeded() {
 
@@ -57,8 +59,6 @@ public class SignupTask extends Task<Void> {
             String message;
 
             if (exc instanceof APICallException) {
-                message = exc.getMessage();
-            } else if (exc instanceof URISyntaxException) {
                 message = exc.getMessage();
             } else {
                 message = "Unexpected error";
@@ -89,11 +89,11 @@ public class SignupTask extends Task<Void> {
         return HttpRequestBuilder.buildSignupPOST(authRequest);
     }
 
-    private boolean isAuthenticationFailed(HttpResponse<String> response){
+    private boolean isAuthenticationFailed(HttpResponse<String> response) {
         return response.statusCode() != 201;
     }
 
-    private void onErrorThrow(HttpResponse<String> response) throws JsonProcessingException{
+    private void onErrorThrow(HttpResponse<String> response) throws JsonProcessingException {
         ApiError error = mapper.readValue(response.body(), ApiError.class);
         throw new APICallException(error.getMessage());
     }

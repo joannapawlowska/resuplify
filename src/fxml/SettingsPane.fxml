@@ -33,7 +33,7 @@
                                     <Label prefHeight="25.0" prefWidth="25.0" text="days" />
                                  </children>
                               </HBox>
-                              <Label prefHeight="122.0" prefWidth="299.0" text="Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery duration Default delivery durationDefault delivery duration Default delivery duration Default delivery durationDefault delivery durationDefault delivery durationDefault delivery durationDefault delivery durationDefault delivery duration Default delivery durationDefault delivery duration" textAlignment="JUSTIFY" textOverrun="CLIP" wrapText="true" />
+                              <Label prefHeight="122.0" prefWidth="299.0" text="Predicted delivery time (in days) is added to the prediction period. Please set a default delivery time that will be displayed in the prediction window each time the application is launched." textAlignment="JUSTIFY" textOverrun="CLIP" wrapText="true" />
                            </children>
                            <padding>
                               <Insets left="50.0" right="10.0" />

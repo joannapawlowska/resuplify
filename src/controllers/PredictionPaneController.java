@@ -5,7 +5,7 @@ import components.logic.DataFileWriter;
 import components.logic.Preference;
 import components.view.NonNegativeIntegerTextField;
 import components.view.PopupStage;
-import entity.Product;
+import dto.Product;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -33,6 +33,7 @@ public class PredictionPaneController {
     @FXML private Label amountLabel;
     @FXML private HBox deliveryBox;
     @FXML private Button predictButton;
+    @FXML private Button saveToFileButton;
     @FXML public TableViewController tableViewController;
 
     private LogOutPaneController logOutPaneController;
@@ -174,6 +175,10 @@ public class PredictionPaneController {
 
     public void setDisablePredictButton(boolean disable){
         predictButton.setDisable(disable);
+    }
+
+    public void setDisableSaveToFileButton(boolean disable){
+        saveToFileButton.setDisable(disable);
     }
 
     public void injectLogOutPaneController(LogOutPaneController logOutPaneController) {

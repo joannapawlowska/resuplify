@@ -1,4 +1,4 @@
-package entity;
+package dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,7 +12,8 @@ public class ApiError {
     private String message;
     private List<String> details;
 
-    public ApiError() {}
+    public ApiError() {
+    }
 
     public String getMessage() {
         return message;

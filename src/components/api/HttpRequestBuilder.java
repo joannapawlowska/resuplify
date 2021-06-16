@@ -2,7 +2,8 @@ package components.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.AuthRequest;
+import components.logic.Preference;
+import dto.AuthRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 
 public class HttpRequestBuilder {
 
-    public static final String BASE_URL = "https://48032270-3579-4a4f-843d-05b139e8eaf9.mock.pstmn.io";
+    public static final String BASE_URL = "http://localhost:8080/resuplify";
     public static final String AUTH_SIGNUP_ENDPOINT = "/auth/signup";
     public static final String AUTH_LOGIN_ENDPOINT = "/auth/login";
     public static final String RESUPPLY_ENDPOINT = "/resupply";
@@ -21,6 +22,7 @@ public class HttpRequestBuilder {
         return HttpRequest.newBuilder()
                 .uri(parseURI(RESUPPLY_ENDPOINT, date))
                 .header("Accept", "application/json")
+                .header("Authorization", String.format("Bearer %s", Preference.getToken()))
                 .GET()
                 .build();
     }

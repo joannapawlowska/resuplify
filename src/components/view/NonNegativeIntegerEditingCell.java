@@ -1,6 +1,6 @@
 package components.view;
 
-import entity.Product;
+import dto.Product;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -26,7 +26,7 @@ public class NonNegativeIntegerEditingCell extends TableCell<Product, Integer> {
 
         textProperty().bind(Bindings
                 .when(emptyProperty())
-                .then((String)null)
+                .then((String) null)
                 .otherwise(itemProperty().asString()));
 
         setGraphic(textField);
@@ -46,7 +46,7 @@ public class NonNegativeIntegerEditingCell extends TableCell<Product, Integer> {
         };
     }
 
-    private boolean isNonNegativeInteger(String text){
+    private boolean isNonNegativeInteger(String text) {
         return text.matches("\\d+");
     }
 
@@ -71,7 +71,7 @@ public class NonNegativeIntegerEditingCell extends TableCell<Product, Integer> {
         textFormatter = new TextFormatter<>(converter, 0, filter);
     }
 
-    private void addFormatterAndActionToTextField(){
+    private void addFormatterAndActionToTextField() {
         textField.setTextFormatter(textFormatter);
         commitEditingOnAction();
         cancelEditingOnKeyEscape();

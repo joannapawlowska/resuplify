@@ -22,7 +22,7 @@ public class SwitchButton extends StackPane {
         getChildren().addAll(slider);
     }
 
-    private void setSize(){
+    private void setSize() {
         setMinSize(45, 25);
         setPrefSize(45, 25);
         setMaxSize(45, 25);
@@ -35,7 +35,7 @@ public class SwitchButton extends StackPane {
         slider.getStyleClass().add("switch-slider");
     }
 
-    private void setButtonCurrentStyle(){
+    private void setButtonCurrentStyle() {
         if (switchedOn.get()) {
             setSwitchedOnStyle();
         } else {
@@ -43,12 +43,12 @@ public class SwitchButton extends StackPane {
         }
     }
 
-    private void setSwitchedOnStyle(){
+    private void setSwitchedOnStyle() {
         pseudoClassStateChanged(SWITCHED_ON, true);
         pseudoClassStateChanged(SWITCHED_OFF, false);
     }
 
-    private void setSwitchedOffStyle(){
+    private void setSwitchedOffStyle() {
         pseudoClassStateChanged(SWITCHED_ON, false);
         pseudoClassStateChanged(SWITCHED_OFF, true);
     }
@@ -61,7 +61,11 @@ public class SwitchButton extends StackPane {
         return switchedOn.get();
     }
 
-    public void setSwitchedOn(boolean switchedOn) { this.switchedOn.set(switchedOn); }
+    public void setSwitchedOn(boolean switchedOn) {
+        this.switchedOn.set(switchedOn);
+    }
 
-    public BooleanProperty getSwitchedOnProperty(){ return switchedOn; }
+    public BooleanProperty getSwitchedOnProperty() {
+        return switchedOn;
+    }
 }

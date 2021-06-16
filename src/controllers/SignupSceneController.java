@@ -3,7 +3,7 @@ package controllers;
 import components.api.SignupTask;
 import components.logic.Preference;
 import components.view.PopupStage;
-import entity.AuthRequest;
+import dto.AuthRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class SignupSceneController {
 
-    @FXML protected AnchorPane scene;
+    @FXML private AnchorPane scene;
     @FXML private TextField usernameTextField;
     @FXML private PasswordField passwordTextField;
     @FXML private TextField shopUrlTextField;
@@ -60,8 +60,6 @@ public class SignupSceneController {
 
         try {
             AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/LoginScene.fxml"));
-            scene.getStylesheets().add("css/login-scene.css");
-            scene.getStylesheets().remove("css/signup-scene.css");
             scene.getChildren().setAll(pane);
 
         } catch (IOException exception) {

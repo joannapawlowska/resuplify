@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
-<AnchorPane fx:id="scene" prefHeight="450.0" prefWidth="800.0" stylesheets="@../css/signup-scene.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupSceneController">
+<AnchorPane fx:id="scene" prefHeight="450.0" prefWidth="800.0" stylesheets="@../css/login-signup-scene.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupSceneController">
     <children>
         <VBox AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="235.0" AnchorPane.topAnchor="43.0" spacing="10" alignment="CENTER">
             <children>
@@ -39,7 +39,6 @@
                         <Button minHeight="30.0" mnemonicParsing="false" fx:id="signupButton" onAction="#handleSignupBtn" prefHeight="30.0" prefWidth="190.0" text="Create account">
                             <styleClass>
                                 <String fx:value="btn"/>
-                                <String fx:value="signup"/>
                             </styleClass>
                         </Button>
                     </children>
